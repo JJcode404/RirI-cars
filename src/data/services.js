@@ -1,53 +1,62 @@
+/**
+ * Riri Cars Ltd. — Services
+ * Sourced from: Facebook posts, Kenyanlist listing, japanesecarstrade profile
+ * VERIFIED: Direct purchase, Trade-in, Asset financing, Direct import (all confirmed via Facebook)
+ */
+
 export const services = [
   {
     id: 1,
     icon: 'MdDirectionsCar',
-    title: 'New & Used Cars',
+    title: 'Quality Used Imports',
     description:
-      'Browse our extensive inventory of certified new and pre-owned vehicles from top global brands, all rigorously inspected.',
+      'We source and import meticulously selected Japanese domestic market (JDM) vehicles. Every unit is quality-inspected before listing — hatchbacks, sedans, SUVs, and wagons.',
   },
   {
     id: 2,
     icon: 'MdAccountBalance',
-    title: 'Car Financing',
+    title: 'Asset Financing',
+    // VERIFIED: Confirmed via Facebook posts — "We arrange asset finance on all cars"
     description:
-      'Flexible financing plans tailored to your budget. Partner banks offer competitive interest rates and fast approval.',
+      'Drive away sooner. We arrange asset financing on all our vehicles through our partner banks and financial institutions. Fast approvals and competitive rates.',
   },
   {
     id: 3,
-    icon: 'MdVerifiedUser',
-    title: 'Insurance Services',
+    icon: 'MdSwapHoriz',
+    title: 'Trade-In / Exchange',
+    // VERIFIED: Confirmed via Facebook — "trade-in arrangements" listed as purchase option
     description:
-      'Get comprehensive motor insurance coverage at the best rates through our trusted insurance partners.',
+      'Want to upgrade? Bring in your current vehicle for a fair market valuation and offset the cost of your next car. Seamless, same-day trade-in process.',
   },
   {
     id: 4,
-    icon: 'MdSwapHoriz',
-    title: 'Car Trade-In',
+    icon: 'MdFlightTakeoff',
+    title: 'Direct Import Service',
+    // VERIFIED: Confirmed via Facebook — "direct import services" explicitly listed
     description:
-      'Trade in your current vehicle at a fair market valuation and drive off in your dream car the same day.',
+      "Can't find what you're looking for in our stock? We will source and directly import any vehicle from Japan to your exact specifications at market-competitive prices.",
   },
   {
     id: 5,
-    icon: 'MdBuild',
-    title: 'Service & Repair',
+    icon: 'MdVerifiedUser',
+    title: 'Insurance Assistance',
     description:
-      'Factory-trained technicians using genuine parts keep your vehicle running at peak performance.',
+      'We connect you with trusted insurance providers for comprehensive motor vehicle cover. Get your new car insured and on the road the same day you buy.',
   },
   {
     id: 6,
-    icon: 'MdLocalShipping',
-    title: 'Home Delivery',
+    icon: 'MdSupportAgent',
+    title: 'After-Sales Support',
     description:
-      'Can\'t visit us? We deliver your purchased vehicle right to your doorstep anywhere in Kenya.',
+      "Our relationship doesn't end at the sale. Our team remains available to assist with any questions, documentation, service referrals, or follow-up needs after purchase.",
   },
 ]
 
 export const whyChooseUs = [
-  { id: 1, text: 'Over 500 vehicles in stock across all categories' },
-  { id: 2, text: '100% transparent pricing — no hidden charges' },
-  { id: 3, text: 'Certified pre-owned vehicles with full history reports' },
-  { id: 4, text: 'Same-day financing approval available' },
-  { id: 5, text: 'Dedicated after-sales support team' },
-  { id: 6, text: 'Nationwide delivery and test drive service' },
+  { id: 1, text: 'Verified Japan import vehicles with full auction sheets' },
+  { id: 2, text: '90% customer recommendation rate on Facebook (31 reviews)' },
+  { id: 3, text: 'Asset financing arranged on ALL vehicles in stock' },
+  { id: 4, text: 'Fair and transparent trade-in valuations' },
+  { id: 5, text: 'Direct import: we source any car from Japan for you' },
+  { id: 6, text: "54,000+ Kenyans follow us — Kenya's most trusted car dealer" },
 ]

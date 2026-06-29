@@ -5,6 +5,8 @@ import {
   MdSwapHoriz,
   MdBuild,
   MdLocalShipping,
+  MdFlightTakeoff,
+  MdSupportAgent,
   MdArrowForward,
 } from 'react-icons/md'
 import { services } from '../../data/services'
@@ -16,6 +18,8 @@ const iconMap = {
   MdSwapHoriz,
   MdBuild,
   MdLocalShipping,
+  MdFlightTakeoff,
+  MdSupportAgent,
 }
 
 export default function Services() {
@@ -30,8 +34,8 @@ export default function Services() {
           <h2 className="section-title mt-1 mx-auto">Our Services</h2>
           <div className="divider-red mx-auto" />
           <p className="section-subtitle mx-auto text-center mt-3 max-w-2xl">
-            From finding your perfect vehicle to financing, insurance, and
-            after-sales support — RIRI CARS is your complete automotive partner.
+            From direct Japan imports and asset financing to trade-ins and after-sales
+            support — Riri Cars is your complete automotive partner on Kiambu Road.
           </p>
         </div>
 
@@ -44,7 +48,6 @@ export default function Services() {
                 key={service.id}
                 className="group p-6 border border-brand-border rounded bg-brand-bg hover:bg-white hover:border-primary hover:shadow-card-hover transition-all duration-300 cursor-pointer"
               >
-                {/* Icon */}
                 <div className="w-14 h-14 bg-primary-subtle border border-primary/20 rounded flex items-center justify-center mb-4 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
                   {Icon && (
                     <Icon className="text-primary group-hover:text-white text-2xl transition-colors duration-300" />

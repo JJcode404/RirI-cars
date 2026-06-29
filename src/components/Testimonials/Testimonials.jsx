@@ -1,5 +1,5 @@
 import { MdFormatQuote, MdStar, MdStarBorder } from 'react-icons/md'
-import { testimonials } from '../../data/testimonials'
+import { testimonials, trustStats } from '../../data/testimonials'
 
 const StarRating = ({ rating }) => (
   <div className="flex items-center gap-0.5">
@@ -33,8 +33,8 @@ export default function Testimonials() {
           </h2>
           <div className="w-12 h-1 bg-primary mt-3 mb-1 mx-auto" />
           <p className="text-white/60 text-sm mt-3 max-w-lg mx-auto">
-            Don't take our word for it — hear from thousands of satisfied
-            customers who found their perfect vehicle with RIRI CARS.
+            Riri Cars holds a <strong className="text-accent">90% recommendation rate</strong> on
+            Facebook based on 31 verified reviews.
           </p>
         </div>
 
@@ -45,21 +45,12 @@ export default function Testimonials() {
               key={t.id}
               className="bg-white/5 border border-white/10 rounded p-6 hover:bg-white/10 hover:border-primary/30 transition-all duration-300 group"
             >
-              {/* Quote icon */}
               <MdFormatQuote className="text-primary text-4xl mb-4 opacity-80" />
-
-              {/* Stars */}
               <StarRating rating={t.rating} />
-
-              {/* Text */}
               <p className="text-white/80 text-sm leading-relaxed mt-4 mb-6">
                 "{t.text}"
               </p>
-
-              {/* Divider */}
               <div className="w-full h-px bg-white/10 mb-4" />
-
-              {/* Author */}
               <div className="flex items-center gap-3">
                 <img
                   src={t.avatar}
@@ -71,20 +62,22 @@ export default function Testimonials() {
                   <p className="text-white/50 text-xs">{t.role}</p>
                 </div>
               </div>
+              {!t.verified && (
+                <p className="text-white/20 text-xs mt-3 italic">
+                  * Sample testimonial representative of customer experience
+                </p>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Trust indicators */}
+        {/* Verified Trust Stats */}
         <div className="flex flex-wrap justify-center gap-8 mt-12 pt-10 border-t border-white/10">
-          {[
-            { value: '4.9/5', label: 'Average Rating' },
-            { value: '2,400+', label: 'Reviews on Google' },
-            { value: '98%', label: 'Customer Satisfaction' },
-          ].map(({ value, label }) => (
+          {trustStats.map(({ value, label, source }) => (
             <div key={label} className="text-center">
               <p className="text-accent font-black text-2xl">{value}</p>
-              <p className="text-white/50 text-xs mt-1">{label}</p>
+              <p className="text-white/70 text-sm mt-1 font-semibold">{label}</p>
+              <p className="text-white/30 text-xs mt-0.5 italic">{source}</p>
             </div>
           ))}
         </div>

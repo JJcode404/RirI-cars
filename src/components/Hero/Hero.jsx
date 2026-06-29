@@ -1,4 +1,5 @@
 import SearchBar from "../SearchBar/SearchBar";
+import { company } from "../../data/company";
 
 export default function Hero() {
   return (
@@ -8,7 +9,7 @@ export default function Hero() {
       style={{
         backgroundImage: `
           linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(11,26,49,0.75) 50%, rgba(0,0,0,0.60) 100%),
-          url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1600&q=85&auto=format&fit=crop')
+          url('https://images.unsplash.com/photo-1669691101370-9ee9ee0782dc?w=1600&q=85&auto=format&fit=crop')
         `,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -19,39 +20,39 @@ export default function Hero() {
       <div className="absolute top-0 left-0 w-full h-1 bg-red-shine" />
 
       <div className="max-w-container mx-auto px-6 w-full">
-        {/* Eyebrow */}
+        {/* Eyebrow — verified tagline from Facebook */}
         <div className="flex items-center gap-3 mb-5">
           <div className="w-10 h-0.5 bg-primary" />
           <span className="text-accent font-semibold text-sm uppercase tracking-widest">
-            Kenya's Premier Car Dealership
+            Kiambu Road · Fourways Junction · Nairobi
           </span>
         </div>
 
         {/* Headline */}
         <h1 className="text-white font-black text-5xl sm:text-6xl lg:text-7xl leading-none tracking-tight mb-4 max-w-3xl">
-          Find Your
+          {company.tagline.split(' ').slice(0, 2).join(' ')}
           <br />
-          <span className="text-primary">Perfect Drive</span>
+          <span className="text-primary">
+            {company.tagline.split(' ').slice(2).join(' ')}
+          </span>
         </h1>
 
-        {/* Subtitle */}
+        {/* Slogan */}
         <p className="text-white/70 text-lg sm:text-xl mb-10 max-w-xl leading-relaxed">
-          Over 500 new and certified pre-owned vehicles. Flexible financing,
-          fair trade-ins, and expert service — all under one roof.
+          Quality Japanese imported vehicles — hatchbacks, sedans, SUVs, and wagons.
+          Asset financing available on every car in our showroom.
         </p>
 
-        {/* Quick stats row */}
+        {/* Quick stats — sourced from Facebook page data */}
         <div className="flex flex-wrap gap-8 mb-12">
           {[
-            { value: "500+", label: "Vehicles in Stock" },
-            { value: "50+", label: "Premium Brands" },
-            { value: "10K+", label: "Happy Clients" },
+            { value: "54K+", label: "Facebook Followers" },
+            { value: "90%", label: "Recommendation Rate" },
+            { value: "10+", label: "Years Serving Kenya" },
           ].map(({ value, label }) => (
             <div key={label} className="flex items-center gap-3">
               <span className="text-primary font-black text-2xl">{value}</span>
-              <span className="text-white/60 text-sm leading-tight">
-                {label}
-              </span>
+              <span className="text-white/60 text-sm leading-tight">{label}</span>
             </div>
           ))}
         </div>

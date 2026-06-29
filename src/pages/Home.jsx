@@ -1,4 +1,5 @@
 import Hero from '../components/Hero/Hero'
+import BrandScroll from '../components/BrandScroll/BrandScroll'
 import FeaturedCars from '../components/FeaturedCars/FeaturedCars'
 import Stats from '../components/Stats/Stats'
 import Services from '../components/Services/Services'
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <BrandScroll />
       <FeaturedCars />
       <Stats />
       <Services />

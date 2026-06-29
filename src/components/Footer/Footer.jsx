@@ -4,58 +4,40 @@ import {
   MdLocationOn,
   MdArrowForward,
   MdAccessTime,
+  MdMap,
 } from 'react-icons/md'
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaWhatsapp,
-  FaTiktok,
-} from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { company } from '../../data/company'
 
 const quickLinks = [
   { label: 'Home', href: '#home' },
-  { label: 'New Cars', href: '#featured' },
-  { label: 'Used Cars', href: '#featured' },
-  { label: 'Car Financing', href: '#services' },
-  { label: 'Trade-In Valuation', href: '#services' },
-  { label: 'Service Centre', href: '#services' },
+  { label: 'All Vehicles', href: '#featured' },
+  { label: 'Hatchbacks', href: '#featured' },
+  { label: 'Sedans & Saloons', href: '#featured' },
+  { label: 'SUVs & 4x4s', href: '#featured' },
+  { label: 'Hybrid Cars', href: '#featured' },
   { label: 'About Us', href: '#about' },
   { label: 'Blog', href: '#blog' },
 ]
 
 const serviceLinks = [
-  'Car Finance',
-  'Insurance',
-  'Test Drive',
-  'Home Delivery',
-  'Car Care & Repair',
-  'Vehicle Inspection',
-  'Fleet Management',
-  'Roadside Assistance',
-]
-
-const socials = [
-  { icon: FaFacebookF, href: '#', label: 'Facebook' },
-  { icon: FaInstagram, href: '#', label: 'Instagram' },
-  { icon: FaTwitter, href: '#', label: 'Twitter/X' },
-  { icon: FaYoutube, href: '#', label: 'YouTube' },
-  { icon: FaWhatsapp, href: '#', label: 'WhatsApp' },
-  { icon: FaTiktok, href: '#', label: 'TikTok' },
+  'Quality Used Imports',
+  'Asset Financing',
+  'Trade-In / Exchange',
+  'Direct Import Service',
+  'Insurance Assistance',
+  'After-Sales Support',
 ]
 
 export default function Footer() {
   return (
     <footer id="footer" className="bg-dark">
-      {/* Top accent */}
       <div className="w-full h-1 bg-red-shine" />
 
       <div className="container-main py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand column */}
           <div className="lg:col-span-1">
-            {/* Logo */}
             <div className="flex items-center gap-2 mb-4">
               <div className="flex flex-col leading-none">
                 <span className="text-white font-black text-2xl tracking-tight">RIRI</span>
@@ -63,28 +45,47 @@ export default function Footer() {
               </div>
               <div className="w-px h-10 bg-white/20 mx-1" />
               <span className="text-white/40 text-xs font-medium leading-tight">
-                Premium<br />Automotive
+                Where Excellence<br />Meets Affordability
               </span>
             </div>
 
-            <p className="text-white/50 text-sm leading-relaxed mb-5">
-              Kenya's most trusted car dealership since 2010. We connect drivers
-              with their perfect vehicle through exceptional service, transparency,
-              and expertise.
+            <p className="text-white/50 text-sm leading-relaxed mb-3">
+              Riri Cars Ltd. is a trusted importer and dealer of quality Japanese vehicles,
+              located along Kiambu Road in Nairobi.
+            </p>
+            <p className="text-white/30 text-xs italic mb-5">
+              "{company.slogan}"
             </p>
 
-            {/* Socials */}
+            {/* Social media — only verified platforms */}
             <div className="flex items-center gap-2.5">
-              {socials.map(({ icon: Icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-9 h-9 bg-white/5 hover:bg-primary border border-white/10 hover:border-primary rounded flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
-                >
-                  <Icon size={14} />
-                </a>
-              ))}
+              <a
+                href={company.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook (54K+ followers — Verified)"
+                className="w-9 h-9 bg-white/5 hover:bg-primary border border-white/10 hover:border-primary rounded flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+              >
+                <FaFacebookF size={14} />
+              </a>
+              <a
+                href={company.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-9 h-9 bg-white/5 hover:bg-primary border border-white/10 hover:border-primary rounded flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+              >
+                <FaInstagram size={14} />
+              </a>
+              <a
+                href={company.social.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="w-9 h-9 bg-white/5 hover:bg-green-600 border border-white/10 hover:border-green-600 rounded flex items-center justify-center text-white/60 hover:text-white transition-all duration-200"
+              >
+                <FaWhatsapp size={14} />
+              </a>
             </div>
           </div>
 
@@ -130,43 +131,87 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact — all verified */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-1">
               Contact Us
             </h3>
             <div className="w-8 h-0.5 bg-primary mb-5" />
             <ul className="space-y-4">
+              {/* Address */}
               <li className="flex items-start gap-3">
                 <MdLocationOn className="text-primary text-lg flex-shrink-0 mt-0.5" />
-                <span className="text-white/50 text-sm leading-relaxed">
-                  Riri Cars Complex, Ngong Road,<br />
-                  Nairobi, Kenya
-                </span>
+                <div>
+                  <p className="text-white/70 text-sm leading-relaxed">
+                    {company.location.street}
+                  </p>
+                  <p className="text-white/50 text-xs mt-0.5">
+                    {company.location.landmark}
+                  </p>
+                  <p className="text-white/50 text-xs">{company.location.area}</p>
+                  <a
+                    href={company.location.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-accent hover:text-accent-light text-xs mt-1 transition-colors"
+                  >
+                    <MdMap size={12} /> Get Directions
+                  </a>
+                </div>
               </li>
+
+              {/* Phone 1 — verified */}
               <li>
                 <a
-                  href="tel:+254700000000"
+                  href={`tel:${company.contact.phone1Bare}`}
                   className="flex items-center gap-3 text-white/50 hover:text-white text-sm transition-colors"
                 >
                   <MdPhone className="text-primary text-lg flex-shrink-0" />
-                  +254 700 000 000
+                  {company.contact.phone1}
                 </a>
               </li>
+
+              {/* Phone 2 — verified */}
               <li>
                 <a
-                  href="mailto:info@riricars.co.ke"
+                  href={`tel:${company.contact.phone2Bare}`}
+                  className="flex items-center gap-3 text-white/50 hover:text-white text-sm transition-colors"
+                >
+                  <MdPhone className="text-primary text-lg flex-shrink-0" />
+                  {company.contact.phone2}
+                </a>
+              </li>
+
+              {/* WhatsApp — verified from Facebook */}
+              <li>
+                <a
+                  href={company.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-white/50 hover:text-white text-sm transition-colors"
+                >
+                  <FaWhatsapp className="text-green-400 text-lg flex-shrink-0" />
+                  {company.contact.whatsapp} (WhatsApp)
+                </a>
+              </li>
+
+              {/* Email */}
+              <li>
+                <a
+                  href={`mailto:${company.contact.email}`}
                   className="flex items-center gap-3 text-white/50 hover:text-white text-sm transition-colors"
                 >
                   <MdEmail className="text-primary text-lg flex-shrink-0" />
-                  info@riricars.co.ke
+                  {company.contact.email}
                 </a>
               </li>
+
+              {/* Hours */}
               <li className="flex items-start gap-3">
                 <MdAccessTime className="text-primary text-lg flex-shrink-0 mt-0.5" />
-                <div className="text-white/50 text-sm space-y-1">
-                  <p>Mon – Fri: 8:00 AM – 6:00 PM</p>
-                  <p>Saturday: 9:00 AM – 5:00 PM</p>
+                <div className="text-white/50 text-xs space-y-1">
+                  <p>Mon – Fri: 7:00 AM – 10:00 PM</p>
+                  <p>Saturday: 8:00 AM – 5:00 PM</p>
                   <p>Sunday: Closed</p>
                 </div>
               </li>
@@ -179,10 +224,10 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="container-main py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-white/30 text-xs">
-            © {new Date().getFullYear()} RIRI CARS. All rights reserved.
+            © {new Date().getFullYear()} {company.name}. All rights reserved. · {company.location.poBox}
           </p>
           <div className="flex items-center gap-4">
-            {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((label) => (
+            {['Privacy Policy', 'Terms of Service'].map((label) => (
               <a
                 key={label}
                 href="#"

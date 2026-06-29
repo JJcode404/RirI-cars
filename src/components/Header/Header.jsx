@@ -7,13 +7,8 @@ import {
   MdClose,
   MdKeyboardArrowDown,
 } from 'react-icons/md'
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaWhatsapp,
-} from 'react-icons/fa'
+import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { company } from '../../data/company'
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -21,10 +16,12 @@ const navLinks = [
     label: 'Inventory',
     href: '#featured',
     children: [
-      { label: 'New Cars', href: '#featured' },
-      { label: 'Used Cars', href: '#featured' },
-      { label: 'Electric & Hybrid', href: '#featured' },
-      { label: 'Luxury Vehicles', href: '#featured' },
+      { label: 'All Vehicles', href: '#featured' },
+      { label: 'Hatchbacks', href: '#featured' },
+      { label: 'Sedans & Saloons', href: '#featured' },
+      { label: 'SUVs & 4x4s', href: '#featured' },
+      { label: 'Station Wagons', href: '#featured' },
+      { label: 'Hybrid Cars', href: '#featured' },
     ],
   },
   { label: 'Services', href: '#services' },
@@ -51,69 +48,72 @@ export default function Header() {
         <div className="max-w-container mx-auto px-6 flex items-center justify-between h-9">
           <div className="flex items-center gap-6">
             <a
-              href="tel:+254700000000"
+              href={`tel:${company.contact.phone1Bare}`}
               className="flex items-center gap-1.5 hover:text-accent transition-colors"
             >
               <MdPhone className="text-primary text-sm" />
-              <span>+254 700 000 000</span>
+              <span>{company.contact.phone1}</span>
             </a>
             <a
-              href="mailto:info@riricars.co.ke"
+              href={`mailto:${company.contact.email}`}
               className="flex items-center gap-1.5 hover:text-accent transition-colors"
             >
               <MdEmail className="text-primary text-sm" />
-              <span>info@riricars.co.ke</span>
+              <span>{company.contact.email}</span>
             </a>
             <span className="flex items-center gap-1.5 text-muted-light">
               <MdAccessTime className="text-primary text-sm" />
-              <span>Mon – Sat: 8:00 AM – 6:00 PM</span>
+              <span>{company.hoursShort}</span>
             </span>
           </div>
           <div className="flex items-center gap-3">
-            {[
-              { icon: FaFacebookF, href: '#' },
-              { icon: FaInstagram, href: '#' },
-              { icon: FaTwitter, href: '#' },
-              { icon: FaYoutube, href: '#' },
-              { icon: FaWhatsapp, href: '#' },
-            ].map(({ icon: Icon, href }, i) => (
-              <a
-                key={i}
-                href={href}
-                className="text-muted-light hover:text-accent transition-colors"
-                aria-label="Social link"
-              >
-                <Icon size={13} />
-              </a>
-            ))}
+            <a
+              href={company.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="text-muted-light hover:text-accent transition-colors"
+            >
+              <FaFacebookF size={13} />
+            </a>
+            <a
+              href={company.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="text-muted-light hover:text-accent transition-colors"
+            >
+              <FaInstagram size={13} />
+            </a>
+            <a
+              href={company.social.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="text-muted-light hover:text-accent transition-colors"
+            >
+              <FaWhatsapp size={13} />
+            </a>
           </div>
         </div>
       </div>
 
       {/* Main Navigation */}
-      <nav
-        className={`bg-dark-nav transition-all duration-300 ${
-          scrolled ? 'shadow-nav' : ''
-        }`}
-      >
+      <nav className={`bg-dark-nav transition-all duration-300 ${scrolled ? 'shadow-nav' : ''}`}>
         <div className="max-w-container mx-auto px-6 flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2 flex-shrink-0">
             <div className="flex flex-col leading-none">
-              <span className="text-white font-black text-2xl tracking-tight font-outfit">
-                RIRI
-              </span>
-              <span className="text-primary font-black text-2xl tracking-tight font-outfit -mt-1">
-                CARS
-              </span>
+              <span className="text-white font-black text-2xl tracking-tight font-outfit">RIRI</span>
+              <span className="text-primary font-black text-2xl tracking-tight font-outfit -mt-1">CARS</span>
             </div>
             <div className="w-px h-10 bg-white/20 mx-1 hidden sm:block" />
-            <span className="text-white/60 text-xs font-medium hidden sm:block leading-tight">
-              Premium<br />Automotive
+            <span className="text-white/50 text-xs font-medium hidden sm:block leading-tight">
+              Where Excellence<br />Meets Affordability
             </span>
           </a>
 
-          {/* Desktop Nav Links */}
+          {/* Desktop Nav */}
           <ul className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <li
@@ -155,18 +155,20 @@ export default function Header() {
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="tel:+254700000000"
+              href={company.social.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium transition-colors"
             >
-              <MdPhone className="text-primary" />
-              Call Us
+              <FaWhatsapp className="text-green-400" />
+              WhatsApp
             </a>
             <a href="#featured" className="btn-primary text-xs py-2.5 px-5">
-              Browse Cars
+              View Cars
             </a>
           </div>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile toggle */}
           <button
             className="lg:hidden text-white p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -195,7 +197,7 @@ export default function Header() {
                         <a
                           key={child.label}
                           href={child.href}
-                          className="block text-white/60 hover:text-white px-3 py-2 rounded text-xs transition-colors"
+                          className="block text-white/50 hover:text-white px-3 py-2 rounded text-xs transition-colors"
                           onClick={() => setMobileOpen(false)}
                         >
                           {child.label}
@@ -206,8 +208,22 @@ export default function Header() {
                 </div>
               ))}
               <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+                <a
+                  href={`tel:${company.contact.phone1Bare}`}
+                  className="flex items-center justify-center gap-2 border border-white/20 text-white text-sm py-2.5 rounded"
+                >
+                  <MdPhone /> {company.contact.phone1}
+                </a>
+                <a
+                  href={company.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm py-2.5 rounded font-semibold"
+                >
+                  <FaWhatsapp /> WhatsApp Us
+                </a>
                 <a href="#featured" className="btn-primary justify-center text-xs">
-                  Browse Cars
+                  View Cars
                 </a>
               </div>
             </div>

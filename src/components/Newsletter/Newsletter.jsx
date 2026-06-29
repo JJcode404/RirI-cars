@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { MdEmail, MdArrowForward, MdCheckCircle } from 'react-icons/md'
+import { MdEmail, MdArrowForward, MdCheckCircle, MdPhone } from 'react-icons/md'
+import { FaWhatsapp, FaFacebookF, FaInstagram } from 'react-icons/fa'
+import { company } from '../../data/company'
 
 export default function Newsletter() {
   const [email, setEmail] = useState('')
@@ -25,32 +27,30 @@ export default function Newsletter() {
         backgroundPosition: 'center',
       }}
     >
-      {/* Accent elements */}
       <div className="absolute top-0 left-0 w-full h-1 bg-red-shine" />
       <div className="absolute bottom-0 left-0 w-full h-1 bg-red-shine" />
 
       <div className="container-main relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Text */}
+          {/* Text + Form */}
           <div>
             <span className="text-accent font-bold text-xs uppercase tracking-widest">
-              Stay Updated
+              Stay in the Loop
             </span>
             <h2 className="text-white font-black text-3xl lg:text-4xl mt-2 mb-4 leading-tight">
-              Get the Latest Deals
-              <br />
-              <span className="text-primary">Straight to Your Inbox</span>
+              Get New Arrivals &<br />
+              <span className="text-primary">Exclusive Deals First</span>
             </h2>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-md">
-              Subscribe to the RIRI CARS newsletter for exclusive deals, new
-              arrivals, buying guides, and automotive tips delivered weekly.
+              Subscribe and be the first to know when new Japanese imports land at our showroom
+              on Kiambu Road. Weekly deals, buying guides, and tips — straight to your inbox.
             </p>
 
             <ul className="space-y-2 mb-8">
               {[
-                'Exclusive subscriber-only offers',
                 'New arrivals before they go public',
-                'Expert automotive tips & guides',
+                'Flash sale alerts and exclusive subscriber discounts',
+                'Hybrid car guides and import tips',
                 'No spam — unsubscribe anytime',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2 text-white/70 text-sm">
@@ -60,12 +60,11 @@ export default function Newsletter() {
               ))}
             </ul>
 
-            {/* Email form */}
             {submitted ? (
               <div className="flex items-center gap-3 bg-success/10 border border-success/30 rounded px-5 py-4">
                 <MdCheckCircle className="text-success text-xl" />
                 <p className="text-white text-sm font-medium">
-                  You're subscribed! Watch your inbox for exclusive deals.
+                  You're subscribed! Watch your inbox for the latest Riri Cars deals.
                 </p>
               </div>
             ) : (
@@ -76,34 +75,110 @@ export default function Newsletter() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
+                    placeholder="Your email address"
                     required
                     className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/40 text-sm px-4 py-3 pl-10 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                   />
                 </div>
                 <button type="submit" className="btn-primary flex-shrink-0 justify-center">
-                  Subscribe
-                  <MdArrowForward />
+                  Subscribe <MdArrowForward />
                 </button>
               </form>
             )}
-
-            <p className="text-white/30 text-xs mt-3">
-              By subscribing you agree to our Privacy Policy.
-            </p>
+            <p className="text-white/30 text-xs mt-3">We respect your privacy.</p>
           </div>
 
-          {/* Car image */}
-          <div className="hidden lg:flex items-center justify-center relative">
-            <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80&auto=format&fit=crop"
-                alt="Featured vehicle"
-                className="w-full max-w-md rounded shadow-red-glow"
-                style={{ filter: 'drop-shadow(0 0 40px rgba(204,0,0,0.3))' }}
-              />
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded pointer-events-none" />
+          {/* Contact quick-access panel */}
+          <div className="hidden lg:block">
+            <div className="bg-white/5 border border-white/10 rounded p-8 space-y-5">
+              <h3 className="text-white font-bold text-lg mb-4">Contact Riri Cars Directly</h3>
+
+              <a
+                href={`tel:${company.contact.phone1Bare}`}
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded flex items-center justify-center group-hover:bg-primary transition-all">
+                  <MdPhone className="text-primary group-hover:text-white" />
+                </div>
+                <div>
+                  <p className="text-white/50 text-xs">Call us</p>
+                  <p className="text-white font-semibold text-sm">{company.contact.phone1}</p>
+                </div>
+              </a>
+
+              <a
+                href={`tel:${company.contact.phone2Bare}`}
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded flex items-center justify-center group-hover:bg-primary transition-all">
+                  <MdPhone className="text-primary group-hover:text-white" />
+                </div>
+                <div>
+                  <p className="text-white/50 text-xs">Call us</p>
+                  <p className="text-white font-semibold text-sm">{company.contact.phone2}</p>
+                </div>
+              </a>
+
+              <a
+                href={company.social.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-10 h-10 bg-green-600/20 border border-green-600/30 rounded flex items-center justify-center group-hover:bg-green-600 transition-all">
+                  <FaWhatsapp className="text-green-400 group-hover:text-white" />
+                </div>
+                <div>
+                  <p className="text-white/50 text-xs">WhatsApp</p>
+                  <p className="text-white font-semibold text-sm">{company.contact.whatsapp}</p>
+                </div>
+              </a>
+
+              <a
+                href={`mailto:${company.contact.email}`}
+                className="flex items-center gap-4 group"
+              >
+                <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded flex items-center justify-center group-hover:bg-primary transition-all">
+                  <MdEmail className="text-primary group-hover:text-white" />
+                </div>
+                <div>
+                  <p className="text-white/50 text-xs">Email</p>
+                  <p className="text-white font-semibold text-sm">{company.contact.email}</p>
+                </div>
+              </a>
+
+              <div className="pt-4 border-t border-white/10">
+                <p className="text-white/40 text-xs mb-3">Follow us</p>
+                <div className="flex gap-3">
+                  <a
+                    href={company.social.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 bg-white/5 hover:bg-primary border border-white/10 hover:border-primary rounded flex items-center justify-center text-white/60 hover:text-white transition-all"
+                    aria-label="Facebook"
+                  >
+                    <FaFacebookF size={14} />
+                  </a>
+                  <a
+                    href={company.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 bg-white/5 hover:bg-primary border border-white/10 hover:border-primary rounded flex items-center justify-center text-white/60 hover:text-white transition-all"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram size={14} />
+                  </a>
+                  <a
+                    href={company.social.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 bg-white/5 hover:bg-green-600 border border-white/10 hover:border-green-600 rounded flex items-center justify-center text-white/60 hover:text-white transition-all"
+                    aria-label="WhatsApp"
+                  >
+                    <FaWhatsapp size={14} />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
