@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Outfit', system-ui, sans-serif;
+    background-color: #F7F7F7;
+    color: #1A1A1A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+@layer components {
+  .container-main {
+    @apply max-w-container mx-auto px-6;
+  }
+
+  .section-gap {
+    @apply py-20;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold text-dark tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-muted text-base mt-2 max-w-xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-primary hover:bg-primary-dark active:bg-primary-darker
+           text-white font-semibold text-sm tracking-wide uppercase
+           px-6 py-3 rounded transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 bg-dark-nav hover:bg-dark-charcoal active:bg-dark
+           text-white font-semibold text-sm tracking-wide uppercase
+           px-6 py-3 rounded transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-dark focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border-2 border-white hover:bg-white hover:text-dark
+           text-white font-semibold text-sm tracking-wide uppercase
+           px-6 py-3 rounded transition-all duration-200;
+  }
+
+  .btn-outline-primary {
+    @apply inline-flex items-center gap-2 border-2 border-primary hover:bg-primary hover:text-white
+           text-primary font-semibold text-sm tracking-wide uppercase
+           px-6 py-3 rounded transition-all duration-200;
+  }
+
+  .badge-new {
+    @apply inline-block bg-success text-white text-xs font-bold uppercase tracking-widest
+           px-2 py-0.5 rounded-full;
+  }
+
+  .badge-used {
+    @apply inline-block bg-primary text-white text-xs font-bold uppercase tracking-widest
+           px-2 py-0.5 rounded-full;
+  }
+
+  .input-field {
+    @apply w-full bg-white border border-brand-border text-dark text-sm
+           px-4 py-3 rounded focus:outline-none focus:border-primary
+           focus:ring-1 focus:ring-primary transition-colors duration-200
+           placeholder:text-muted-light;
+  }
+
+  .select-field {
+    @apply w-full bg-white border border-brand-border text-dark text-sm
+           px-4 py-3 rounded appearance-none cursor-pointer
+           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary
+           transition-colors duration-200;
+  }
+
+  .price-tag {
+    @apply text-primary font-bold text-xl;
+  }
+
+  .card-base {
+    @apply bg-white rounded border border-brand-border shadow-card
+           hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .star-filled {
+    @apply text-accent;
+  }
+
+  .star-empty {
+    @apply text-brand-border;
+  }
+
+  .divider-red {
+    @apply w-12 h-1 bg-primary mt-3 mb-1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
