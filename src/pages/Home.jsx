@@ -5,7 +5,7 @@ import Stats from '../components/Stats/Stats'
 import Services from '../components/Services/Services'
 import About from '../components/About/About'
 import Testimonials from '../components/Testimonials/Testimonials'
-import Blog from '../components/Blog/Blog'
+import RecentlySold from '../components/RecentlySold/RecentlySold'
 import Newsletter from '../components/Newsletter/Newsletter'
 import CTA from '../components/CTA/CTA'
 
@@ -19,7 +19,7 @@ export default function Home() {
       <Services />
       <About />
       <Testimonials />
-      <Blog />
+      <RecentlySold />
       <Newsletter />
       <CTA />
     </main>

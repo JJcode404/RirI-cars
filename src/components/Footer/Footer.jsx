@@ -10,14 +10,14 @@ import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { company } from '../../data/company'
 
 const quickLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'All Vehicles', href: '#featured' },
-  { label: 'Hatchbacks', href: '#featured' },
-  { label: 'Sedans & Saloons', href: '#featured' },
-  { label: 'SUVs & 4x4s', href: '#featured' },
-  { label: 'Hybrid Cars', href: '#featured' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'Home', href: '/' },
+  { label: 'All Vehicles', href: '/cars' },
+  { label: 'Hatchbacks', href: '/cars?bodyType=Hatchback' },
+  { label: 'Sedans & Saloons', href: '/cars?bodyType=Sedan' },
+  { label: 'SUVs & 4x4s', href: '/cars?bodyType=SUV' },
+  { label: 'Hybrid Cars', href: '/cars?fuel=Hybrid' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Recently Sold', href: '/#recently-sold' },
 ]
 
 const serviceLinks = [
@@ -120,7 +120,7 @@ export default function Footer() {
               {serviceLinks.map((label) => (
                 <li key={label}>
                   <a
-                    href="#services"
+                    href="/services"
                     className="flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors group"
                   >
                     <MdArrowForward className="text-primary text-xs opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all" />

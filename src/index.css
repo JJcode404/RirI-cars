@@ -34,11 +34,11 @@
 
 @layer components {
   .container-main {
-    @apply max-w-container mx-auto px-6;
+    @apply max-w-container mx-auto px-4 sm:px-6;
   }
 
   .section-gap {
-    @apply py-20;
+    @apply py-12 md:py-20;
   }
 
   .section-title {

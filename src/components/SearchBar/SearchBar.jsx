@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { MdSearch, MdKeyboardArrowDown } from 'react-icons/md'
 import { makes, models, years, priceRanges, bodyTypes } from '../../data/cars'
 
 const SelectField = ({ label, options, value, onChange }) => (
-  <div className="relative flex-1 min-w-[140px]">
+  <div className="relative flex-1 min-w-0">
     <label className="block text-xs font-bold text-muted-dark uppercase tracking-wider mb-1.5">
       {label}
     </label>
@@ -26,6 +27,7 @@ const SelectField = ({ label, options, value, onChange }) => (
 )
 
 export default function SearchBar() {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('all')
   const [filters, setFilters] = useState({
     make: '',
@@ -36,6 +38,17 @@ export default function SearchBar() {
   })
 
   const setFilter = (key) => (val) => setFilters((f) => ({ ...f, [key]: val }))
+
+  const handleSearch = () => {
+    const params = new URLSearchParams()
+    if (filters.make) params.set('make', filters.make)
+    if (filters.model) params.set('model', filters.model)
+    if (filters.year) params.set('year', filters.year)
+    if (filters.bodyType) params.set('bodyType', filters.bodyType)
+    if (activeTab === 'new') params.set('status', 'New')
+    if (activeTab === 'used') params.set('status', 'Used')
+    navigate(`/cars?${params.toString()}`)
+  }
 
   return (
     <div className="bg-white rounded shadow-card-hover border border-brand-border overflow-hidden">
@@ -62,7 +75,7 @@ export default function SearchBar() {
 
       {/* Filters */}
       <div className="p-4">
-        <div className="flex flex-wrap gap-3 items-end">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap gap-3 items-end">
           <SelectField
             label="Make"
             options={makes}
@@ -93,11 +106,14 @@ export default function SearchBar() {
             value={filters.bodyType}
             onChange={setFilter('bodyType')}
           />
-          <div className="flex-shrink-0">
-            <label className="block text-xs font-bold text-muted-dark uppercase tracking-wider mb-1.5 opacity-0 select-none">
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1 lg:flex-shrink-0">
+            <label className="hidden lg:block text-xs font-bold text-muted-dark uppercase tracking-wider mb-1.5 opacity-0 select-none">
               Search
             </label>
-            <button className="btn-primary h-[46px] px-8 gap-2">
+            <button
+              onClick={handleSearch}
+              className="btn-primary w-full lg:w-auto h-[46px] px-8 gap-2 justify-center"
+            >
               <MdSearch size={18} />
               Search
             </button>

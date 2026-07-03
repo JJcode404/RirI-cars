@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { MdArrowForward, MdPhone, MdLocationOn } from 'react-icons/md'
 import { FaWhatsapp } from 'react-icons/fa'
 import { company } from '../../data/company'
@@ -31,12 +32,12 @@ export default function CTA() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
-            <a
-              href="#featured"
+            <Link
+              to="/cars"
               className="inline-flex items-center justify-center gap-2 bg-white text-primary hover:bg-brand-bg font-bold text-sm uppercase tracking-wide px-7 py-3.5 rounded transition-all duration-200 shadow"
             >
               Browse Inventory <MdArrowForward />
-            </a>
+            </Link>
             <a
               href={company.social.whatsapp}
               target="_blank"

@@ -46,7 +46,7 @@ export default function BrandScroll() {
 
       {/* Scrolling strip */}
       <div className="flex select-none">
-        <div className="brand-track flex items-center gap-16 flex-shrink-0 px-8">
+        <div className="brand-track flex items-center gap-8 md:gap-16 flex-shrink-0 px-4 md:px-8">
           {track.map(({ name, Icon, color }, i) => (
             <div
               key={i}

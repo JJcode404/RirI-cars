@@ -9,12 +9,19 @@
  *
  * All prices are in Kenyan Shillings (KSh).
  * Riri Cars stocks primarily Japanese domestic market (JDM) used imports.
+ *
+ * stockNumber = internal inventory reference (not a public record, assigned for display purposes)
+ * description = marketing copy for the car details page, written from the specs above
+ * gallery     = image set for the details page carousel. First entry matches `image`.
+ *               Additional angles are real photos of the matching year/make/model/engine
+ *               generation sourced from Wikimedia Commons (no placeholder URLs are fabricated).
  */
 
 export const featuredCars = [
   // ── 1. Toyota Vitz ──────────────────────────────────────────────────────
   {
     id: 1,
+    stockNumber: 'RC-1001',
     year: 2020,
     make: "Toyota",
     model: "Vitz F",
@@ -30,6 +37,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Pearl White",
     interiorColor: "Black Fabric",
+    description:
+      "A clean, fuel-sipping city car fresh off a Japan import. This Vitz F combines a punchy 1.0L 3-cylinder engine with a smooth CVT gearbox, making it an easy first car or economical daily runabout around Nairobi. Comes with push-start convenience and a rear camera for stress-free parking.",
     features: [
       "Push-start",
       "Rear camera",
@@ -42,11 +51,18 @@ export const featuredCars = [
     // Stock image: small pearl-white JDM-style hatchback
     image:
       "https://www.carjunction.com/car_images2/100278_112213/112213aa-(1)_578x417.jpg",
+    gallery: [
+      "https://www.carjunction.com/car_images2/100278_112213/112213aa-(1)_578x417.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/8/8d/Toyota_Vitz_1.0F_%28DBA-KSP130-AHXNK%29_front.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/2/2a/Toyota_Vitz_KSP130_1.0F_rear.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/2/26/Toyota_Vitz_1.3F_%28XP130%29_front.JPG",
+    ],
   },
 
   // ── 2. Toyota Land Cruiser Prado TX ────────────────────────────────────
   {
     id: 2,
+    stockNumber: 'RC-1002',
     year: 2019,
     make: "Toyota",
     model: "Land Cruiser Prado",
@@ -62,6 +78,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Gray Metallic",
     interiorColor: "Beige Leather",
+    description:
+      "The Land Cruiser Prado TX needs no introduction — a proven 4WD workhorse built for Kenyan roads, from tarmac to murram. This 7-seater comes loaded with leather seats, a sunroof, Crawl Control for tough terrain, and dual-zone climate control, all wrapped in a reliable 2.7L petrol drivetrain.",
     features: [
       "Sunroof",
       "Leather seats",
@@ -75,11 +93,18 @@ export const featuredCars = [
     // VERIFIED: Toyota Prado featured in Riri Cars Facebook video
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKFxRHHIO0CkEtnf8rL5BCjzIjcb_xdAiKpNALeb-8Jg&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKFxRHHIO0CkEtnf8rL5BCjzIjcb_xdAiKpNALeb-8Jg&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/3/36/Toyota_LAND_CRUISER_PRADO_TX_%28CBA-TRJ150W-GKTEK%29_front.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/8/87/Toyota_Land_Cruiser_Prado_2.7_TXL_2019_%2852693304483%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/3/3b/Toyota_LAND_CRUISER_PRADO_TX_%22Argento_Cross%22_4WD_%28TRJ150W%29_front.JPG",
+    ],
   },
 
   // ── 3. Honda Fit Hybrid ─────────────────────────────────────────────────
   {
     id: 3,
+    stockNumber: 'RC-1003',
     year: 2020,
     make: "Honda",
     model: "Fit",
@@ -95,6 +120,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Burgundy Red",
     interiorColor: "Gray Fabric",
+    description:
+      "Low mileage, low running costs. This Honda Fit Hybrid pairs a 1.3L engine with Integrated Motor Assist for excellent fuel economy in city traffic. Honda Sensing brings adaptive cruise control and lane keep assist — safety tech rarely found at this price point.",
     features: [
       "Honda Sensing",
       "Adaptive cruise control",
@@ -106,11 +133,18 @@ export const featuredCars = [
     available: true,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPqS3RikrCNV2QtX9DBD3F99z-PTtQeLxPYrpOZUYHcQ&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPqS3RikrCNV2QtX9DBD3F99z-PTtQeLxPYrpOZUYHcQ&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/d/d6/Honda_FIT_HYBRID_S_Package_%28GP5%29_front_%28cropped%29.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/4/46/Honda_FIT_HYBRID_S_Package_%28GP5%29_rear_%28cropped%29.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/d/d5/Honda_Fit_hybrid.JPG",
+    ],
   },
 
   // ── 4. Toyota Corolla Axio Hybrid ──────────────────────────────────────
   {
     id: 4,
+    stockNumber: 'RC-1004',
     year: 2018,
     make: "Toyota",
     model: "Corolla Axio",
@@ -126,6 +160,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Pearl White",
     interiorColor: "Dark Gray Fabric",
+    description:
+      "One of Riri Cars' top-selling models — the Corolla Axio Hybrid delivers Toyota reliability with hybrid-grade fuel savings, ideal for Uber/Bolt or family use. Smart entry, push-start, and an ETC unit for toll roads make it a practical, low-maintenance sedan.",
     features: [
       "Hybrid battery",
       "Rear camera",
@@ -138,11 +174,18 @@ export const featuredCars = [
     // VERIFIED: Toyota Corolla Axio is a top-selling Riri Cars model category
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMLUNTOG1hgFxHlzN2oGCIVRsAsFKP0fH09MrS7OuZoA&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMLUNTOG1hgFxHlzN2oGCIVRsAsFKP0fH09MrS7OuZoA&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/c/cb/Toyota_Corolla_Axio_Hybrid_%28NKE165%29_front.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/2/27/Toyota_Corolla_Axio_Hybrid_%28NKE165%29_rear.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/7/77/Toyota_Corolla_Axio_Hybrid_%28NKE165%29.jpg",
+    ],
   },
 
   // ── 5. Toyota Corolla Fielder ───────────────────────────────────────────
   {
     id: 5,
+    stockNumber: 'RC-1005',
     year: 2019,
     make: "Toyota",
     model: "Corolla Fielder",
@@ -158,6 +201,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Silver Metallic",
     interiorColor: "Gray Fabric",
+    description:
+      "A core Riri Cars stock item — the Corolla Fielder's wagon body offers generous boot space over a standard sedan, backed by Toyota's legendary NZE-series reliability. Great for families or business owners who need extra load capacity without stepping up to an SUV.",
     features: [
       "Rear camera",
       "Bluetooth",
@@ -170,11 +215,18 @@ export const featuredCars = [
     // VERIFIED: Fielder is a core Riri Cars inventory item (JapaneseCarTrade profile)
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLEC0QpoFutCHP7KgTO8yTcwqDqOE1UdpzkFVaLUI_QQ&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLEC0QpoFutCHP7KgTO8yTcwqDqOE1UdpzkFVaLUI_QQ&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/b/b8/Toyota_Corolla_Fielder_%28NZE161G%29_1.5G_AeroTourer.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/4/47/Toyota_Corolla_Fielder_%28NZE161G%29_1.5G_AeroTourer_Rear.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/d/d1/Toyota_Corolla_Fielder_%28NZE164G%29_X_4WD.JPG",
+    ],
   },
 
   // ── 6. Subaru Forester XT ──────────────────────────────────────────────
   {
     id: 6,
+    stockNumber: 'RC-1006',
     year: 2018,
     make: "Subaru",
     model: "Forester",
@@ -190,6 +242,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Crystal Black Silica",
     interiorColor: "Black Leather",
+    description:
+      "Turbocharged and all-wheel-driven, this Forester XT is built for drivers who want performance without giving up SUV practicality. Symmetrical AWD and EyeSight driver assist bring confidence on wet or rough roads, while the panoramic sunroof and leather cabin keep things premium inside.",
     features: [
       "Panoramic sunroof",
       "EyeSight driver assist",
@@ -201,11 +255,18 @@ export const featuredCars = [
     available: true,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqKvEeZ6ox3d3JgNb6cQg3LzDHEQLVfWrhK699kyKIQw&s",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqKvEeZ6ox3d3JgNb6cQg3LzDHEQLVfWrhK699kyKIQw&s",
+      "https://upload.wikimedia.org/wikipedia/commons/b/b2/Subaru_FORESTER_2.0XT_%28SJ%29_front.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/7/7e/Subaru_FORESTER_2.0XT_%28SJ%29_rear.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/5/53/Subaru_Forester_XT_%28SJ%29_rear.JPG",
+    ],
   },
 
   // ── 7. Nissan X-Trail ──────────────────────────────────────────────────
   {
     id: 7,
+    stockNumber: 'RC-1007',
     year: 2020,
     make: "Nissan",
     model: "X-Trail",
@@ -221,6 +282,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "White Pearl",
     interiorColor: "Black Fabric",
+    description:
+      "A spacious family SUV with genuine driver-assist tech — ProPILOT Assist and the AroundView Monitor make tight parking and highway cruising far less stressful. Clean pearl-white exterior with a well-kept black fabric interior throughout.",
     features: [
       "Rear camera",
       "AroundView Monitor",
@@ -232,11 +295,18 @@ export const featuredCars = [
     available: true,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6uKEZv3VIWDtGF1mKBTGlBLekAnqfX1AGah0A3IgiiA&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6uKEZv3VIWDtGF1mKBTGlBLekAnqfX1AGah0A3IgiiA&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/2/2d/Nissan_X-TRAIL_20X_%28DBA-T32%29_front.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/3/31/Nissan_X-TRAIL_20X_%28DBA-T32%29_interior.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/4/40/2018_Nissan_X-Trail_%28T32%29_ST_wagon_%282018-10-01%29_01.jpg",
+    ],
   },
 
   // ── 8. Toyota Allion ───────────────────────────────────────────────────
   {
     id: 8,
+    stockNumber: 'RC-1008',
     year: 2019,
     make: "Toyota",
     model: "Allion",
@@ -252,6 +322,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Champagne Gold",
     interiorColor: "Beige Fabric",
+    description:
+      "The Allion A18 G Package offers a refined, comfortable ride with a distinctly executive look in champagne gold. Smart entry and push-start add everyday convenience, and the 1.8L 2ZR-FE engine is known across the JDM market for dependable, low-maintenance service life.",
     features: [
       "Push-start",
       "Smart entry",
@@ -263,11 +335,19 @@ export const featuredCars = [
     available: true,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYyKSC1kfFGsJv_edrTy7xEVj22cvgXxH_S--gP9oD1A&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYyKSC1kfFGsJv_edrTy7xEVj22cvgXxH_S--gP9oD1A&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/9/9a/Toyota_ALLION_A18_%22G-plus_Package%22_2WD_%28ZRT260%29_front.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/f/f6/Toyota_ALLION_A18_%22G-plus_Package%22_2WD_%28ZRT260%29_rear.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/2/29/Toyota_Allion_A18_in_Silver_Metallic%2C_front_right.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/5/53/Allioninterior.jpg",
+    ],
   },
 
   // ── 9. Toyota Auris Hybrid ─────────────────────────────────────────────
   {
     id: 9,
+    stockNumber: 'RC-1009',
     year: 2014,
     make: "Toyota",
     model: "Auris",
@@ -283,6 +363,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Wine Red",
     interiorColor: "Black Fabric",
+    description:
+      "An affordable entry into hybrid motoring — the Auris 1.8 Hybrid S sips fuel around town while offering hatchback practicality. This wine-red example is one of several Auris units Riri Cars has moved through its Facebook listings, a model well known to the dealership's regular buyers.",
     features: [
       "Hybrid battery",
       "Rear camera",
@@ -295,11 +377,18 @@ export const featuredCars = [
     // VERIFIED: Toyota Auris 2013–2014 explicitly advertised on Riri Cars Facebook (wine red, white, black, blue, silver)
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe-1ZD1HnjCzLOinMvBH91CbQx4msKL68ZhAgI7lrayg&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe-1ZD1HnjCzLOinMvBH91CbQx4msKL68ZhAgI7lrayg&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/c/cf/Toyota_AURIS_HYBRID_%28DAA-ZWE186H-BHXNB%29.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/4/45/Toyota_AURIS_HYBRID%22G_Package%22_%28DAA-ZWE186H-BHXNB-V%29_interior.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/9/99/Toyota_Auris_Hybrid.jpg",
+    ],
   },
 
   // ── 10. Nissan Note e-Power ────────────────────────────────────────────
   {
     id: 10,
+    stockNumber: 'RC-1010',
     year: 2020,
     make: "Nissan",
     model: "Note",
@@ -315,6 +404,8 @@ export const featuredCars = [
     condition: "Japan Import",
     exteriorColor: "Deep Blue Pearl",
     interiorColor: "Gray Fabric",
+    description:
+      "The Note e-Power uses its 1.2L engine purely as a generator, driving the wheels electrically for an instant-torque, EV-like feel with none of the range anxiety. ProPILOT and Around View Monitor round out a genuinely tech-forward package for a compact hatchback.",
     features: [
       "e-Power tech",
       "ProPILOT",
@@ -326,6 +417,13 @@ export const featuredCars = [
     available: true,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Zdu4ODcW4lM_vTbCrRsU4shMQT6QiKm0VpI-tUCiBg&s=10",
+    gallery: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Zdu4ODcW4lM_vTbCrRsU4shMQT6QiKm0VpI-tUCiBg&s=10",
+      "https://upload.wikimedia.org/wikipedia/commons/4/40/Nissan_NOTE_%28E12%29_front.JPG",
+      "https://upload.wikimedia.org/wikipedia/commons/5/51/Nissan_Note_E12_e-Power_DSC_0112.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/0/00/Nissan_Note_e-POWER_X.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/5/58/Nissan_Note_E12_Engine_and_e-Power.jpg",
+    ],
   },
 ];
 

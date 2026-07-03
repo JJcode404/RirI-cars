@@ -1,5 +1,6 @@
 import { MdFavorite, MdFavoriteBorder, MdSpeed, MdLocalGasStation, MdSettings, MdVerified } from 'react-icons/md'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const formatPrice = (price) =>
   `KSh ${price.toLocaleString('en-KE')}`
@@ -10,7 +11,10 @@ export default function CarCard({ car }) {
   return (
     <article className="card-base group rounded overflow-hidden flex flex-col">
       {/* Image */}
-      <div className="relative overflow-hidden aspect-[4/3] bg-brand-low flex-shrink-0">
+      <Link
+        to={`/cars/${car.id}`}
+        className="relative overflow-hidden aspect-[4/3] bg-brand-low flex-shrink-0 block"
+      >
         <img
           src={car.image}
           alt={`${car.year} ${car.make} ${car.model}`}
@@ -33,7 +37,11 @@ export default function CarCard({ car }) {
         </div>
         {/* Wishlist */}
         <button
-          onClick={() => setLiked(!liked)}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            setLiked(!liked)
+          }}
           className="absolute top-3 right-3 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow transition-all"
           aria-label="Toggle wishlist"
         >
@@ -47,13 +55,15 @@ export default function CarCard({ car }) {
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent py-3 px-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <p className="text-white font-bold text-lg">{formatPrice(car.price)}</p>
         </div>
-      </div>
+      </Link>
 
       {/* Content */}
       <div className="p-4 flex flex-col flex-1">
         {/* Title */}
         <h3 className="font-bold text-dark text-base leading-tight mb-0.5">
-          {car.year} {car.make} {car.model}
+          <Link to={`/cars/${car.id}`} className="hover:text-primary transition-colors">
+            {car.year} {car.make} {car.model}
+          </Link>
         </h3>
         <p className="text-muted text-xs mb-1 font-medium">{car.trim}</p>
         <p className="text-muted-light text-xs mb-3">{car.exteriorColor}</p>
@@ -91,13 +101,13 @@ export default function CarCard({ car }) {
             <p className="text-xs text-muted uppercase tracking-wider font-semibold mb-0.5">Price</p>
             <p className="price-tag">{formatPrice(car.price)}</p>
           </div>
-          <a
-            href="#footer"
+          <Link
+            to={`/cars/${car.id}`}
             className="btn-primary text-xs py-2 px-4"
-            aria-label={`Enquire about ${car.year} ${car.make} ${car.model}`}
+            aria-label={`View details for ${car.year} ${car.make} ${car.model}`}
           >
-            Enquire
-          </a>
+            View Details
+          </Link>
         </div>
       </div>
     </article>

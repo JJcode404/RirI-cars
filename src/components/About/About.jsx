@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { MdCheckCircle, MdArrowForward, MdPhone, MdLocationOn } from 'react-icons/md'
 import { FaWhatsapp } from 'react-icons/fa'
 import { whyChooseUs } from '../../data/services'
@@ -14,7 +15,7 @@ export default function About() {
               <img
                 src="https://images.unsplash.com/photo-1668415759930-5a9dbe80c488?w=800&q=85&auto=format&fit=crop"
                 alt="Riri Cars Showroom on Kiambu Road, Nairobi"
-                className="w-full h-[420px] object-cover"
+                className="w-full h-[260px] sm:h-[360px] lg:h-[420px] object-cover"
               />
               <div className="absolute top-0 left-0 w-1 h-full bg-red-shine" />
             </div>
@@ -72,9 +73,9 @@ export default function About() {
 
             {/* CTAs with real numbers */}
             <div className="flex flex-wrap gap-3">
-              <a href="#featured" className="btn-primary">
+              <Link to="/cars" className="btn-primary">
                 Browse Inventory <MdArrowForward />
-              </a>
+              </Link>
               <a
                 href={company.social.whatsapp}
                 target="_blank"

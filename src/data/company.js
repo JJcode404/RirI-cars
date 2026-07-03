@@ -63,7 +63,7 @@ export const company = {
   social: {
     facebook:  'https://www.facebook.com/riricars.co.ke/',
     instagram: 'https://www.instagram.com/riricars/',
-    // Twitter/X and TikTok — not publicly confirmed; removed
+    tiktok:    'https://www.tiktok.com/@riricarsltd1',
     whatsapp:  'https://wa.me/254729003333',
   },
 

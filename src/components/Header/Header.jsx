@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import {
   MdPhone,
   MdEmail,
@@ -9,25 +10,26 @@ import {
 } from 'react-icons/md'
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { company } from '../../data/company'
+import logo from '../../assets/logo/RiricarsLogo.png'
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
+  { label: 'Home', href: '/' },
   {
     label: 'Inventory',
-    href: '#featured',
+    href: '/cars',
     children: [
-      { label: 'All Vehicles', href: '#featured' },
-      { label: 'Hatchbacks', href: '#featured' },
-      { label: 'Sedans & Saloons', href: '#featured' },
-      { label: 'SUVs & 4x4s', href: '#featured' },
-      { label: 'Station Wagons', href: '#featured' },
-      { label: 'Hybrid Cars', href: '#featured' },
+      { label: 'All Vehicles', href: '/cars' },
+      { label: 'Hatchbacks', href: '/cars?bodyType=Hatchback' },
+      { label: 'Sedans & Saloons', href: '/cars?bodyType=Sedan' },
+      { label: 'SUVs & 4x4s', href: '/cars?bodyType=SUV' },
+      { label: 'Station Wagons', href: '/cars?bodyType=Station%20Wagon' },
+      { label: 'Hybrid Cars', href: '/cars?fuel=Hybrid' },
     ],
   },
-  { label: 'Services', href: '#services' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#footer' },
+  { label: 'Services', href: '/services' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Recently Sold', href: '/#recently-sold' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export default function Header() {
@@ -100,14 +102,11 @@ export default function Header() {
 
       {/* Main Navigation */}
       <nav className={`bg-dark-nav transition-all duration-300 ${scrolled ? 'shadow-nav' : ''}`}>
-        <div className="max-w-container mx-auto px-6 flex items-center justify-between h-16">
+        <div className="max-w-container mx-auto px-6 flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2 flex-shrink-0">
-            <div className="flex flex-col leading-none">
-              <span className="text-white font-black text-2xl tracking-tight font-outfit">RIRI</span>
-              <span className="text-primary font-black text-2xl tracking-tight font-outfit -mt-1">CARS</span>
-            </div>
-            <div className="w-px h-10 bg-white/20 mx-1 hidden sm:block" />
+          <a href="/" className="flex items-center gap-2 flex-shrink-0">
+            <img src={logo} alt="RIRI CARS" className="h-14 w-auto object-contain" />
+            <div className="w-px h-14 bg-white/20 mx-1 hidden sm:block" />
             <span className="text-white/50 text-xs font-medium hidden sm:block leading-tight">
               Where Excellence<br />Meets Affordability
             </span>
@@ -163,7 +162,7 @@ export default function Header() {
               <FaWhatsapp className="text-green-400" />
               WhatsApp
             </a>
-            <a href="#featured" className="btn-primary text-xs py-2.5 px-5">
+            <a href="/cars" className="btn-primary text-xs py-2.5 px-5">
               View Cars
             </a>
           </div>
@@ -222,7 +221,7 @@ export default function Header() {
                 >
                   <FaWhatsapp /> WhatsApp Us
                 </a>
-                <a href="#featured" className="btn-primary justify-center text-xs">
+                <a href="/cars" className="btn-primary justify-center text-xs">
                   View Cars
                 </a>
               </div>
