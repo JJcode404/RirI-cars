@@ -37,6 +37,9 @@ export default function BrandScroll() {
         .brand-track:hover {
           animation-play-state: paused;
         }
+        @media (prefers-reduced-motion: reduce) {
+          .brand-track { animation: none; }
+        }
       `}</style>
 
       {/* Label */}

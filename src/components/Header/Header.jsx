@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import {
   MdPhone,
   MdEmail,
@@ -11,6 +12,8 @@ import {
 import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { company } from '../../data/company'
 import logo from '../../assets/logo/RiricarsLogo.png'
+
+const ease = [0.22, 1, 0.36, 1]
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -37,12 +40,18 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const location = useLocation()
+  const shouldReduce = useReducedMotion()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [location.pathname])
 
   const isActive = (href) => {
     if (href.startsWith('/#')) return false
@@ -146,19 +155,27 @@ export default function Header() {
                     />
                   )}
                 </a>
-                {link.children && activeDropdown === link.label && (
-                  <div className="absolute top-full left-0 mt-1 w-52 bg-white rounded shadow-card-hover py-1 z-50 animate-fade-in">
-                    {link.children.map((child) => (
-                      <a
-                        key={child.label}
-                        href={child.href}
-                        className="block px-4 py-2.5 text-sm text-dark hover:bg-brand-low hover:text-primary transition-colors"
-                      >
-                        {child.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {link.children && activeDropdown === link.label && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                      transition={{ duration: shouldReduce ? 0 : 0.18, ease }}
+                      className="absolute top-full left-0 mt-1 w-52 bg-white rounded shadow-card-hover py-1 z-50 origin-top"
+                    >
+                      {link.children.map((child) => (
+                        <a
+                          key={child.label}
+                          href={child.href}
+                          className="block px-4 py-2.5 text-sm text-dark hover:bg-brand-low hover:text-primary transition-colors"
+                        >
+                          {child.label}
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </li>
             ))}
           </ul>
@@ -180,71 +197,107 @@ export default function Header() {
           </div>
 
           {/* Mobile toggle */}
-          <button
+          <motion.button
             className="lg:hidden text-white p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+            whileTap={shouldReduce ? {} : { scale: 0.9 }}
+            transition={{ duration: 0.12 }}
           >
-            {mobileOpen ? <MdClose size={24} /> : <MdMenu size={24} />}
-          </button>
+            <AnimatePresence mode="wait" initial={false}>
+              {mobileOpen ? (
+                <motion.span
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: shouldReduce ? 0 : 0.15 }}
+                  className="block"
+                >
+                  <MdClose size={24} />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="open"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: shouldReduce ? 0 : 0.15 }}
+                  className="block"
+                >
+                  <MdMenu size={24} />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.button>
         </div>
 
         {/* Mobile Menu */}
-        {mobileOpen && (
-          <div className="lg:hidden bg-dark border-t border-white/10 animate-slide-up">
-            <div className="max-w-container mx-auto px-6 py-4 space-y-1">
-              {navLinks.map((link) => (
-                <div key={link.label}>
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              key="mobile-menu"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: shouldReduce ? 0 : 0.3, ease }}
+              className="lg:hidden bg-dark border-t border-white/10 overflow-hidden"
+            >
+              <div className="max-w-container mx-auto px-6 py-4 space-y-1">
+                {navLinks.map((link) => (
+                  <div key={link.label}>
+                    <a
+                      href={link.href}
+                      aria-current={isActive(link.href) ? 'page' : undefined}
+                      className={`block px-3 py-2.5 rounded text-sm font-medium transition-colors border-l-2 ${
+                        isActive(link.href)
+                          ? 'text-white font-semibold bg-white/10 border-primary'
+                          : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent'
+                      }`}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                    {link.children && (
+                      <div className="pl-4 space-y-1 mt-1">
+                        {link.children.map((child) => (
+                          <a
+                            key={child.label}
+                            href={child.href}
+                            className="block text-white/50 hover:text-white px-3 py-2 rounded text-xs transition-colors"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {child.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
                   <a
-                    href={link.href}
-                    aria-current={isActive(link.href) ? 'page' : undefined}
-                    className={`block px-3 py-2.5 rounded text-sm font-medium transition-colors border-l-2 ${
-                      isActive(link.href)
-                        ? 'text-white font-semibold bg-white/10 border-primary'
-                        : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent'
-                    }`}
-                    onClick={() => setMobileOpen(false)}
+                    href={`tel:${company.contact.phone1Bare}`}
+                    className="flex items-center justify-center gap-2 border border-white/20 text-white text-sm py-2.5 rounded"
                   >
-                    {link.label}
+                    <MdPhone /> {company.contact.phone1}
                   </a>
-                  {link.children && (
-                    <div className="pl-4 space-y-1 mt-1">
-                      {link.children.map((child) => (
-                        <a
-                          key={child.label}
-                          href={child.href}
-                          className="block text-white/50 hover:text-white px-3 py-2 rounded text-xs transition-colors"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          {child.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
+                  <a
+                    href={company.social.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm py-2.5 rounded font-semibold"
+                  >
+                    <FaWhatsapp /> WhatsApp Us
+                  </a>
+                  <a href="/cars" className="btn-primary justify-center text-xs">
+                    View Cars
+                  </a>
                 </div>
-              ))}
-              <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-                <a
-                  href={`tel:${company.contact.phone1Bare}`}
-                  className="flex items-center justify-center gap-2 border border-white/20 text-white text-sm py-2.5 rounded"
-                >
-                  <MdPhone /> {company.contact.phone1}
-                </a>
-                <a
-                  href={company.social.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm py-2.5 rounded font-semibold"
-                >
-                  <FaWhatsapp /> WhatsApp Us
-                </a>
-                <a href="/cars" className="btn-primary justify-center text-xs">
-                  View Cars
-                </a>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   )

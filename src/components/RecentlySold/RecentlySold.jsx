@@ -1,15 +1,26 @@
 import { Link } from 'react-router-dom'
+import { motion, useReducedMotion } from 'motion/react'
 import { MdArrowForward, MdSell } from 'react-icons/md'
 import { recentlySold } from '../../data/recentlySold'
+
+const ease = [0.22, 1, 0.36, 1]
 
 const formatPrice = (price) => `KSh ${price.toLocaleString('en-KE')}`
 
 export default function RecentlySold() {
+  const shouldReduce = useReducedMotion()
+
   return (
     <section id="recently-sold" className="section-gap bg-white">
       <div className="container-main">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <motion.div
+          initial={shouldReduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-5% 0px' }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, ease }}
+          className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10"
+        >
           <div>
             <span className="text-primary font-bold text-xs uppercase tracking-widest">
               Moving Fast
@@ -27,17 +38,28 @@ export default function RecentlySold() {
           >
             View Available Stock <MdArrowForward />
           </Link>
-        </div>
+        </motion.div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {recentlySold.map((car) => (
-            <article key={car.id} className="card-base rounded overflow-hidden flex flex-col">
+          {recentlySold.map((car, i) => (
+            <motion.article
+              key={car.id}
+              initial={shouldReduce ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-5% 0px' }}
+              transition={{
+                duration: shouldReduce ? 0 : 0.4,
+                delay: shouldReduce ? 0 : i * 0.07,
+                ease,
+              }}
+              className="card-base rounded overflow-hidden flex flex-col"
+            >
               <div className="relative overflow-hidden aspect-[4/3] bg-brand-low flex-shrink-0">
                 <img
                   src={car.image}
                   alt={`${car.year} ${car.make} ${car.model}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover grayscale-[30%]"
                   loading="lazy"
                 />
                 <span className="absolute top-3 left-3 bg-dark text-white text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow">
@@ -55,7 +77,7 @@ export default function RecentlySold() {
                   {formatPrice(car.price)}
                 </p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
 

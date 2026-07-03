@@ -1,13 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 import { MdDirectionsCar, MdPeople, MdThumbUp, MdImportExport } from 'react-icons/md'
 
-/**
- * Stats section — sourced from:
- * - Facebook followers: 54K+ (verified, facebook.com/riricars.co.ke)
- * - Recommendation rate: 90% (verified, Facebook reviews)
- * - 10+ years: estimated from directory registration dates and "established" presence
- * - Japanese brands: Toyota, Honda, Nissan, Subaru, Mitsubishi, Mazda, Suzuki, Isuzu
- */
+const ease = [0.22, 1, 0.36, 1]
+
 const stats = [
   {
     icon: MdDirectionsCar,
@@ -36,13 +32,17 @@ const stats = [
 ]
 
 function AnimatedValue({ value, animate, delay = 0 }) {
+  const shouldReduce = useReducedMotion()
   const match = value.match(/^(\d+)(.*)$/)
   const target = match ? parseInt(match[1], 10) : 0
   const suffix = match ? match[2] : value
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(shouldReduce ? target : 0)
 
   useEffect(() => {
-    if (!animate || !target) return
+    if (!animate || !target || shouldReduce) {
+      if (animate) setCount(target)
+      return
+    }
     let raf
     let timeout
     const duration = 1200
@@ -62,57 +62,47 @@ function AnimatedValue({ value, animate, delay = 0 }) {
       clearTimeout(timeout)
       cancelAnimationFrame(raf)
     }
-  }, [animate, target, delay])
+  }, [animate, target, delay, shouldReduce])
 
   return (
-    <>
-      {animate ? count : 0}
-      {suffix}
-    </>
+    <>{count}{suffix}</>
   )
 }
 
 export default function Stats() {
   const sectionRef = useRef(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.3 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
+  const shouldReduce = useReducedMotion()
+  const inView = useInView(sectionRef, { once: true, amount: 0.3 })
 
   return (
     <section ref={sectionRef} className="bg-dark-nav py-14">
       <div className="container-main">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map(({ icon: Icon, value, label, desc }, i) => (
-            <div
+            <motion.div
               key={label}
-              className={`flex flex-col items-center text-center group transition-all duration-700 ease-out ${
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-              style={{ transitionDelay: `${i * 100}ms` }}
+              initial={shouldReduce ? false : { opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : undefined}
+              transition={{
+                duration: shouldReduce ? 0 : 0.55,
+                delay: shouldReduce ? 0 : i * 0.1,
+                ease,
+              }}
+              className="flex flex-col items-center text-center group"
             >
-              <div className="w-14 h-14 bg-primary/10 border border-primary/20 rounded flex items-center justify-center mb-4 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
+              <motion.div
+                className="w-14 h-14 bg-primary/10 border border-primary/20 rounded flex items-center justify-center mb-4"
+                whileHover={shouldReduce ? {} : { backgroundColor: 'rgb(204, 0, 0)', borderColor: 'rgb(204, 0, 0)' }}
+                transition={{ duration: 0.25 }}
+              >
                 <Icon className="text-primary group-hover:text-white text-2xl transition-colors" />
-              </div>
+              </motion.div>
               <p className="text-white font-black text-3xl leading-none mb-1 tabular-nums">
-                <AnimatedValue value={value} animate={inView} delay={i * 100} />
+                <AnimatedValue value={value} animate={inView} delay={i * 120} />
               </p>
               <p className="text-accent font-semibold text-sm mb-1">{label}</p>
               <p className="text-white/40 text-xs">{desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

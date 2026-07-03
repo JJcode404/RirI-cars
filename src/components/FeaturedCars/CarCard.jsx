@@ -1,15 +1,24 @@
 import { MdFavorite, MdFavoriteBorder, MdSpeed, MdLocalGasStation, MdSettings, MdVerified } from 'react-icons/md'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { motion, useReducedMotion } from 'motion/react'
+
+const ease = [0.22, 1, 0.36, 1]
 
 const formatPrice = (price) =>
   `KSh ${price.toLocaleString('en-KE')}`
 
 export default function CarCard({ car }) {
   const [liked, setLiked] = useState(false)
+  const shouldReduce = useReducedMotion()
 
   return (
-    <article className="card-base group rounded overflow-hidden flex flex-col">
+    <motion.article
+      className="card-base group rounded overflow-hidden flex flex-col"
+      whileHover={shouldReduce ? {} : { y: -6 }}
+      whileTap={shouldReduce ? {} : { y: -2, scale: 0.99 }}
+      transition={{ duration: 0.25, ease }}
+    >
       {/* Image */}
       <Link
         to={`/cars/${car.id}`}
@@ -36,7 +45,7 @@ export default function CarCard({ car }) {
           )}
         </div>
         {/* Wishlist */}
-        <button
+        <motion.button
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
@@ -44,13 +53,22 @@ export default function CarCard({ car }) {
           }}
           className="absolute top-3 right-3 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow transition-all"
           aria-label="Toggle wishlist"
+          whileTap={shouldReduce ? {} : { scale: 0.85 }}
+          transition={{ duration: 0.12 }}
         >
           {liked ? (
-            <MdFavorite className="text-primary text-base" />
+            <motion.span
+              key="liked"
+              initial={{ scale: 0.7 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: shouldReduce ? 0 : 0.2, ease: [0.34, 1.2, 0.64, 1] }}
+            >
+              <MdFavorite className="text-primary text-base" />
+            </motion.span>
           ) : (
             <MdFavoriteBorder className="text-muted text-base" />
           )}
-        </button>
+        </motion.button>
         {/* Price on hover */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent py-3 px-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <p className="text-white font-bold text-lg">{formatPrice(car.price)}</p>
@@ -110,6 +128,6 @@ export default function CarCard({ car }) {
           </Link>
         </div>
       </div>
-    </article>
+    </motion.article>
   )
 }

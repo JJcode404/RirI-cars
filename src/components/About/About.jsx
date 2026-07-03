@@ -1,21 +1,37 @@
-import { Link } from 'react-router-dom'
-import { MdCheckCircle, MdArrowForward, MdPhone, MdLocationOn } from 'react-icons/md'
-import { FaWhatsapp } from 'react-icons/fa'
-import { whyChooseUs } from '../../data/services'
-import { company } from '../../data/company'
+import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "motion/react";
+import {
+  MdCheckCircle,
+  MdArrowForward,
+  MdPhone,
+  MdLocationOn,
+} from "react-icons/md";
+import { FaWhatsapp } from "react-icons/fa";
+import { whyChooseUs } from "../../data/services";
+import { company } from "../../data/company";
+
+const ease = [0.22, 1, 0.36, 1];
 
 export default function About() {
+  const shouldReduce = useReducedMotion();
+
   return (
     <section id="about" className="section-gap bg-brand-bg">
       <div className="container-main">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image column */}
-          <div className="relative order-2 lg:order-1">
+          <motion.div
+            initial={shouldReduce ? false : { opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5% 0px" }}
+            transition={{ duration: shouldReduce ? 0 : 0.6, ease }}
+            className="relative order-2 lg:order-1"
+          >
             <div className="relative rounded overflow-hidden shadow-card-hover">
               <img
                 src="https://images.unsplash.com/photo-1668415759930-5a9dbe80c488?w=800&q=85&auto=format&fit=crop"
                 alt="Riri Cars Showroom on Kiambu Road, Nairobi"
-                className="w-full h-[260px] sm:h-[360px] lg:h-[420px] object-cover"
+                className="w-full h-[260px] sm:h-[360px] lg:h-[420px] object-cover transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute top-0 left-0 w-1 h-full bg-red-shine" />
             </div>
@@ -24,7 +40,9 @@ export default function About() {
             <div className="absolute -bottom-6 -right-4 lg:-right-8 bg-primary rounded p-5 shadow-red-glow text-center hidden sm:block">
               <p className="text-white font-black text-4xl leading-none">10+</p>
               <p className="text-white/80 text-xs font-semibold mt-1 uppercase tracking-wider">
-                Years<br />Serving Kenya
+                Years
+                <br />
+                Serving Kenya
               </p>
             </div>
 
@@ -32,36 +50,54 @@ export default function About() {
             <div className="absolute -top-4 -left-4 lg:-left-8 bg-white rounded shadow-card-hover border border-brand-border p-3 hidden sm:flex items-center gap-2 max-w-[200px]">
               <MdLocationOn className="text-primary text-xl flex-shrink-0" />
               <div>
-                <p className="font-bold text-dark text-xs leading-tight">Kiambu Road</p>
+                <p className="font-bold text-dark text-xs leading-tight">
+                  Kiambu Road
+                </p>
                 <p className="text-muted text-xs">Fourways Junction, Nairobi</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Text column */}
-          <div className="order-1 lg:order-2">
+          <motion.div
+            initial={shouldReduce ? false : { opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5% 0px" }}
+            transition={{
+              duration: shouldReduce ? 0 : 0.6,
+              delay: shouldReduce ? 0 : 0.12,
+              ease,
+            }}
+            className="order-1 lg:order-2"
+          >
             <span className="text-primary font-bold text-xs uppercase tracking-widest">
               About Riri Cars Ltd.
             </span>
             <h2 className="section-title mt-1 text-3xl lg:text-4xl">
-              Nairobi's Trusted<br />
+              Nairobi's Trusted
+              <br />
               <span className="text-primary">Japanese Car Dealer</span>
             </h2>
             <div className="divider-red mt-3 mb-5" />
 
             <p className="text-muted leading-relaxed mb-3">
-              Riri Cars Ltd. is a premier importer and dealer of quality used Japanese
-              vehicles, conveniently located along <strong className="text-dark">Kiambu Road at Fourways Junction</strong>,
-              Nairobi — easily accessible from Ridgeways, Runda, Ruaka, Garden Estate, and Gigiri.
+              Riri Cars Ltd. is a premier importer and dealer of quality used
+              Japanese vehicles, conveniently located along{" "}
+              <strong className="text-dark">
+                Kiambu Road at Fourways Junction
+              </strong>
+              , Nairobi — easily accessible from Ridgeways, Runda, Ruaka, Garden
+              Estate, and Gigiri.
             </p>
             <p className="text-muted leading-relaxed mb-7">
-              We stock a carefully selected range of JDM (Japanese Domestic Market) vehicles
-              including hatchbacks, sedans, station wagons, and SUVs from trusted Japanese makes.
-              Every vehicle comes with full auction documentation, and we arrange asset financing
-              on every car in our showroom.
+              We stock a carefully selected range of JDM (Japanese Domestic
+              Market) vehicles including hatchbacks, sedans, station wagons, and
+              SUVs from trusted Japanese makes. Every vehicle comes with full
+              auction documentation, and we arrange asset financing on every car
+              in our showroom.
             </p>
 
-            {/* Why Choose Us List — data from services.js */}
+            {/* Why Choose Us List */}
             <ul className="space-y-3 mb-8">
               {whyChooseUs.map(({ id, text }) => (
                 <li key={id} className="flex items-start gap-3">
@@ -71,7 +107,7 @@ export default function About() {
               ))}
             </ul>
 
-            {/* CTAs with real numbers */}
+            {/* CTAs */}
             <div className="flex flex-wrap gap-3">
               <Link to="/cars" className="btn-primary">
                 Browse Inventory <MdArrowForward />
@@ -93,9 +129,9 @@ export default function About() {
                 {company.contact.phone1}
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }

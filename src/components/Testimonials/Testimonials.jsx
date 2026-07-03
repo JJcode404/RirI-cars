@@ -1,5 +1,8 @@
+import { motion, useReducedMotion } from 'motion/react'
 import { MdFormatQuote, MdStar, MdStarBorder } from 'react-icons/md'
 import { testimonials, trustStats } from '../../data/testimonials'
+
+const ease = [0.22, 1, 0.36, 1]
 
 const StarRating = ({ rating }) => (
   <div className="flex items-center gap-0.5">
@@ -14,17 +17,25 @@ const StarRating = ({ rating }) => (
 )
 
 export default function Testimonials() {
+  const shouldReduce = useReducedMotion()
+
   return (
     <section className="section-gap bg-dark-nav relative overflow-hidden">
       {/* Background accent */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5" aria-hidden="true">
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent rounded-full -translate-x-1/2 translate-y-1/2" />
       </div>
 
       <div className="container-main relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div
+          initial={shouldReduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-5% 0px' }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, ease }}
+          className="text-center mb-12"
+        >
           <span className="text-accent font-bold text-xs uppercase tracking-widest">
             Client Reviews
           </span>
@@ -36,14 +47,22 @@ export default function Testimonials() {
             Riri Cars holds a <strong className="text-accent">90% recommendation rate</strong> on
             Facebook based on 31 verified reviews.
           </p>
-        </div>
+        </motion.div>
 
         {/* Testimonials Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <div
+          {testimonials.map((t, i) => (
+            <motion.div
               key={t.id}
-              className="bg-white/5 border border-white/10 rounded p-6 hover:bg-white/10 hover:border-primary/30 transition-all duration-300 group"
+              initial={shouldReduce ? false : { opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-5% 0px' }}
+              transition={{
+                duration: shouldReduce ? 0 : 0.5,
+                delay: shouldReduce ? 0 : i * 0.1,
+                ease,
+              }}
+              className="bg-white/5 border border-white/10 rounded p-6 hover:bg-white/10 hover:border-primary/30 transition-colors duration-300 group"
             >
               <MdFormatQuote className="text-primary text-4xl mb-4 opacity-80" />
               <StarRating rating={t.rating} />
@@ -67,12 +86,18 @@ export default function Testimonials() {
                   * Sample testimonial representative of customer experience
                 </p>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Verified Trust Stats */}
-        <div className="flex flex-wrap justify-center gap-8 mt-12 pt-10 border-t border-white/10">
+        <motion.div
+          initial={shouldReduce ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-5% 0px' }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.3, ease }}
+          className="flex flex-wrap justify-center gap-8 mt-12 pt-10 border-t border-white/10"
+        >
           {trustStats.map(({ value, label, source }) => (
             <div key={label} className="text-center">
               <p className="text-accent font-black text-2xl">{value}</p>
@@ -80,7 +105,7 @@ export default function Testimonials() {
               <p className="text-white/30 text-xs mt-0.5 italic">{source}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

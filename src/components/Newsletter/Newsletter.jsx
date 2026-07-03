@@ -1,11 +1,15 @@
 import { useState } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { MdEmail, MdArrowForward, MdCheckCircle, MdPhone } from 'react-icons/md'
 import { FaWhatsapp, FaFacebookF, FaInstagram } from 'react-icons/fa'
 import { company } from '../../data/company'
 
+const ease = [0.22, 1, 0.36, 1]
+
 export default function Newsletter() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const shouldReduce = useReducedMotion()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,13 +31,18 @@ export default function Newsletter() {
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute top-0 left-0 w-full h-1 bg-red-shine" />
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-red-shine" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-red-shine" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-red-shine" aria-hidden="true" />
 
       <div className="container-main relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text + Form */}
-          <div>
+          <motion.div
+            initial={shouldReduce ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-5% 0px' }}
+            transition={{ duration: shouldReduce ? 0 : 0.55, ease }}
+          >
             <span className="text-accent font-bold text-xs uppercase tracking-widest">
               Stay in the Loop
             </span>
@@ -60,43 +69,61 @@ export default function Newsletter() {
               ))}
             </ul>
 
-            {submitted ? (
-              <div className="flex items-center gap-3 bg-success/10 border border-success/30 rounded px-5 py-4">
-                <MdCheckCircle className="text-success text-xl" />
-                <p className="text-white text-sm font-medium">
-                  You're subscribed! Watch your inbox for the latest Riri Cars deals.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                <div className="relative flex-1">
-                  <MdEmail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted text-lg" />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email address"
-                    required
-                    className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/40 text-sm px-4 py-3 pl-10 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                  />
-                </div>
-                <button type="submit" className="btn-primary flex-shrink-0 justify-center">
-                  Subscribe <MdArrowForward />
-                </button>
-              </form>
-            )}
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: shouldReduce ? 0 : 0.3, ease }}
+                  className="flex items-center gap-3 bg-success/10 border border-success/30 rounded px-5 py-4"
+                >
+                  <MdCheckCircle className="text-success text-xl" />
+                  <p className="text-white text-sm font-medium">
+                    You're subscribed! Watch your inbox for the latest Riri Cars deals.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  initial={false}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: shouldReduce ? 0 : 0.2 }}
+                  onSubmit={handleSubmit}
+                  className="flex flex-col sm:flex-row gap-3"
+                >
+                  <div className="relative flex-1">
+                    <MdEmail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted text-lg" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Your email address"
+                      required
+                      className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/40 text-sm px-4 py-3 pl-10 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                    />
+                  </div>
+                  <button type="submit" className="btn-primary flex-shrink-0 justify-center">
+                    Subscribe <MdArrowForward />
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
             <p className="text-white/30 text-xs mt-3">We respect your privacy.</p>
-          </div>
+          </motion.div>
 
           {/* Contact quick-access panel */}
-          <div className="hidden lg:block">
+          <motion.div
+            initial={shouldReduce ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-5% 0px' }}
+            transition={{ duration: shouldReduce ? 0 : 0.55, delay: shouldReduce ? 0 : 0.12, ease }}
+            className="hidden lg:block"
+          >
             <div className="bg-white/5 border border-white/10 rounded p-8 space-y-5">
               <h3 className="text-white font-bold text-lg mb-4">Contact Riri Cars Directly</h3>
 
-              <a
-                href={`tel:${company.contact.phone1Bare}`}
-                className="flex items-center gap-4 group"
-              >
+              <a href={`tel:${company.contact.phone1Bare}`} className="flex items-center gap-4 group">
                 <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded flex items-center justify-center group-hover:bg-primary transition-all">
                   <MdPhone className="text-primary group-hover:text-white" />
                 </div>
@@ -106,10 +133,7 @@ export default function Newsletter() {
                 </div>
               </a>
 
-              <a
-                href={`tel:${company.contact.phone2Bare}`}
-                className="flex items-center gap-4 group"
-              >
+              <a href={`tel:${company.contact.phone2Bare}`} className="flex items-center gap-4 group">
                 <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded flex items-center justify-center group-hover:bg-primary transition-all">
                   <MdPhone className="text-primary group-hover:text-white" />
                 </div>
@@ -134,10 +158,7 @@ export default function Newsletter() {
                 </div>
               </a>
 
-              <a
-                href={`mailto:${company.contact.email}`}
-                className="flex items-center gap-4 group"
-              >
+              <a href={`mailto:${company.contact.email}`} className="flex items-center gap-4 group">
                 <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded flex items-center justify-center group-hover:bg-primary transition-all">
                   <MdEmail className="text-primary group-hover:text-white" />
                 </div>
@@ -180,7 +201,7 @@ export default function Newsletter() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
