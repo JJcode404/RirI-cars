@@ -1,5 +1,6 @@
 import SearchBar from "../SearchBar/SearchBar";
 import { company } from "../../data/company";
+import heroBg from "../../assets/riri banner/riri-showroom.jpg";
 
 export default function Hero() {
   return (
@@ -8,8 +9,8 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col justify-end pb-8 md:pb-12 pt-28 md:pt-32"
       style={{
         backgroundImage: `
-          linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(11,26,49,0.75) 50%, rgba(0,0,0,0.60) 100%),
-          url('https://images.unsplash.com/photo-1669691101370-9ee9ee0782dc?w=1600&q=85&auto=format&fit=crop')
+          linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(11,26,49,0.80) 50%, rgba(0,0,0,0.65) 100%),
+          url('${heroBg}')
         `,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -30,17 +31,17 @@ export default function Hero() {
 
         {/* Headline */}
         <h1 className="text-white font-black text-4xl sm:text-6xl lg:text-7xl leading-none tracking-tight mb-4 max-w-3xl">
-          {company.tagline.split(' ').slice(0, 2).join(' ')}
+          {company.tagline.split(" ").slice(0, 2).join(" ")}
           <br />
           <span className="text-primary">
-            {company.tagline.split(' ').slice(2).join(' ')}
+            {company.tagline.split(" ").slice(2).join(" ")}
           </span>
         </h1>
 
         {/* Slogan */}
         <p className="text-white/70 text-base sm:text-xl mb-8 md:mb-10 max-w-xl leading-relaxed">
-          Quality Japanese imported vehicles — hatchbacks, sedans, SUVs, and wagons.
-          Asset financing available on every car in our showroom.
+          Quality Japanese imported vehicles — hatchbacks, sedans, SUVs, and
+          wagons. Asset financing available on every car in our showroom.
         </p>
 
         {/* Quick stats — sourced from Facebook page data */}
@@ -52,7 +53,9 @@ export default function Hero() {
           ].map(({ value, label }) => (
             <div key={label} className="flex items-center gap-3">
               <span className="text-primary font-black text-2xl">{value}</span>
-              <span className="text-white/60 text-sm leading-tight">{label}</span>
+              <span className="text-white/60 text-sm leading-tight">
+                {label}
+              </span>
             </div>
           ))}
         </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import {
   MdPhone,
   MdEmail,
@@ -36,12 +36,19 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
+  const location = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const isActive = (href) => {
+    if (href.startsWith('/#')) return false
+    if (href === '/') return location.pathname === '/'
+    return location.pathname === href || location.pathname.startsWith(`${href}/`)
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full">
@@ -123,7 +130,12 @@ export default function Header() {
               >
                 <a
                   href={link.href}
-                  className="flex items-center gap-1 text-white/80 hover:text-white text-sm font-medium px-3 py-2 rounded transition-colors"
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                  className={`flex items-center gap-1 text-sm font-medium px-3 py-2 rounded transition-colors border-b-2 ${
+                    isActive(link.href)
+                      ? 'text-white font-semibold border-primary'
+                      : 'text-white/80 hover:text-white border-transparent'
+                  }`}
                 >
                   {link.label}
                   {link.children && (
@@ -185,7 +197,12 @@ export default function Header() {
                 <div key={link.label}>
                   <a
                     href={link.href}
-                    className="block text-white/80 hover:text-white hover:bg-white/10 px-3 py-2.5 rounded text-sm font-medium transition-colors"
+                    aria-current={isActive(link.href) ? 'page' : undefined}
+                    className={`block px-3 py-2.5 rounded text-sm font-medium transition-colors border-l-2 ${
+                      isActive(link.href)
+                        ? 'text-white font-semibold bg-white/10 border-primary'
+                        : 'text-white/80 hover:text-white hover:bg-white/10 border-transparent'
+                    }`}
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
