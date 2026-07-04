@@ -6,4 +6,7 @@ export default defineConfig({
   server: {
     allowedHosts: ["6e11-102-215-190-137.ngrok-free.app"],
   },
+  preview: {
+    allowedHosts: ["riri-cars.onrender.com"],
+  },
 });

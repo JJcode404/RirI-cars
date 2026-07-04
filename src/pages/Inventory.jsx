@@ -7,24 +7,13 @@ import {
   MdGridView,
   MdViewList,
 } from 'react-icons/md'
-import { featuredCars } from '../data/cars'
+import useVehicles from '../hooks/useVehicles'
 import { company } from '../data/company'
 import VehicleCard from '../components/Inventory/VehicleCard'
 
 const formatPrice = (price) => `KSh ${price.toLocaleString('en-KE')}`
 
 const uniqueSorted = (values) => [...new Set(values)].sort((a, b) => (a > b ? 1 : -1))
-
-const YEARS = uniqueSorted(featuredCars.map((c) => c.year)).reverse()
-const MAKES = uniqueSorted(featuredCars.map((c) => c.make))
-const MODELS = uniqueSorted(featuredCars.map((c) => c.model))
-const BODY_TYPES = uniqueSorted(featuredCars.map((c) => c.bodyType))
-const CONDITIONS = uniqueSorted(featuredCars.map((c) => c.status))
-const TRANSMISSIONS = uniqueSorted(featuredCars.map((c) => c.transmission))
-const DRIVETRAINS = uniqueSorted(featuredCars.map((c) => c.drive))
-
-const PRICE_MIN = Math.min(...featuredCars.map((c) => c.price))
-const PRICE_MAX = Math.max(...featuredCars.map((c) => c.price))
 
 const MILEAGE_OPTIONS = [
   { label: 'Any Mileage', value: '' },
@@ -65,6 +54,17 @@ function Select({ label, value, onChange, options }) {
 
 export default function Inventory() {
   const [searchParams] = useSearchParams()
+  const { vehicles, loading, error } = useVehicles()
+
+  const YEARS = useMemo(() => uniqueSorted(vehicles.map((c) => c.year)).reverse(), [vehicles])
+  const MAKES = useMemo(() => uniqueSorted(vehicles.map((c) => c.make)), [vehicles])
+  const MODELS = useMemo(() => uniqueSorted(vehicles.map((c) => c.model)), [vehicles])
+  const BODY_TYPES = useMemo(() => uniqueSorted(vehicles.map((c) => c.bodyType)), [vehicles])
+  const CONDITIONS = useMemo(() => uniqueSorted(vehicles.map((c) => c.status)), [vehicles])
+  const TRANSMISSIONS = useMemo(() => uniqueSorted(vehicles.map((c) => c.transmission)), [vehicles])
+  const DRIVETRAINS = useMemo(() => uniqueSorted(vehicles.map((c) => c.drive)), [vehicles])
+  const PRICE_MIN = useMemo(() => (vehicles.length ? Math.min(...vehicles.map((c) => c.price)) : 0), [vehicles])
+  const PRICE_MAX = useMemo(() => (vehicles.length ? Math.max(...vehicles.map((c) => c.price)) : 0), [vehicles])
 
   const [filters, setFilters] = useState(() => ({
     ...DEFAULT_FILTERS,
@@ -76,7 +76,7 @@ export default function Inventory() {
     status: searchParams.get('status') || '',
     fuel: searchParams.get('fuel') || '',
   }))
-  const [maxPrice, setMaxPrice] = useState(PRICE_MAX)
+  const [maxPrice, setMaxPrice] = useState(0)
   const [sort, setSort] = useState('default')
   const [perPage, setPerPage] = useState(9)
   const [view, setView] = useState('grid')
@@ -88,6 +88,11 @@ export default function Inventory() {
   const [periodMonths, setPeriodMonths] = useState('48')
   const [monthlyPayment, setMonthlyPayment] = useState(null)
 
+  // Seed the price slider once vehicles load (PRICE_MAX starts at 0 pre-fetch).
+  useEffect(() => {
+    if (PRICE_MAX > 0 && maxPrice === 0) setMaxPrice(PRICE_MAX)
+  }, [PRICE_MAX])
+
   const setFilter = (key) => (value) => setFilters((f) => ({ ...f, [key]: value }))
 
   const resetFilters = () => {
@@ -96,7 +101,7 @@ export default function Inventory() {
   }
 
   const filtered = useMemo(() => {
-    return featuredCars.filter((c) => {
+    return vehicles.filter((c) => {
       if (filters.q) {
         const haystack = `${c.year} ${c.make} ${c.model} ${c.trim}`.toLowerCase()
         if (!haystack.includes(filters.q.toLowerCase())) return false
@@ -113,7 +118,7 @@ export default function Inventory() {
       if (c.price > maxPrice) return false
       return true
     })
-  }, [filters, maxPrice])
+  }, [vehicles, filters, maxPrice])
 
   const sorted = useMemo(() => {
     const arr = [...filtered]
@@ -174,6 +179,14 @@ export default function Inventory() {
         </div>
       </section>
 
+      {loading ? (
+        <div className="container-main py-24 text-center text-muted">Loading vehicles…</div>
+      ) : error ? (
+        <div className="container-main py-24 text-center text-muted">
+          <p className="text-lg font-semibold mb-2">Couldn't load vehicles right now.</p>
+          <p className="text-sm">Please try again shortly, or contact us directly.</p>
+        </div>
+      ) : (
       <div className="container-main py-10 md:py-14 flex flex-col md:flex-row gap-8 items-start">
         {/* ── Sidebar filters ─────────────────────────────────────────── */}
         <aside className="w-full md:w-80 shrink-0 flex flex-col gap-6">
@@ -402,6 +415,7 @@ export default function Inventory() {
           )}
         </section>
       </div>
+      )}
     </main>
   )
 }

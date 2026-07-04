@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { MdArrowForward } from 'react-icons/md'
-import { featuredCars } from '../../data/cars'
+import useVehicles from '../../hooks/useVehicles'
 import CarCard from './CarCard'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -18,8 +18,9 @@ const tabs = [
 export default function FeaturedCars() {
   const [activeTab, setActiveTab] = useState('all')
   const shouldReduce = useReducedMotion()
+  const { vehicles, loading, error } = useVehicles()
 
-  const filtered = featuredCars.filter((c) => {
+  const filtered = vehicles.filter((c) => {
     if (activeTab === 'all') return true
     const tab = tabs.find((t) => t.key === activeTab)
     if (!tab) return true
@@ -73,14 +74,14 @@ export default function FeaturedCars() {
                 onClick={() => setActiveTab(key)}
                 className={`relative flex-1 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded whitespace-nowrap transition-colors duration-150 ${
                   activeTab === key
-                    ? 'text-white'
+                    ? 'text-primary'
                     : 'text-muted hover:text-dark'
                 }`}
               >
                 {activeTab === key && (
                   <motion.span
                     layoutId="tab-indicator"
-                    className="absolute inset-0 bg-primary rounded"
+                    className="absolute inset-0 bg-primary-subtle rounded"
                     transition={{ duration: shouldReduce ? 0 : 0.22, ease }}
                     style={{ zIndex: -1 }}
                   />
@@ -93,7 +94,16 @@ export default function FeaturedCars() {
 
         {/* Cars Grid */}
         <AnimatePresence mode="wait">
-          {filtered.length > 0 ? (
+          {loading ? (
+            <motion.div key="loading" className="text-center py-16 text-muted">
+              Loading vehicles…
+            </motion.div>
+          ) : error ? (
+            <motion.div key="error" className="text-center py-16 text-muted">
+              <p className="text-lg font-semibold mb-2">Couldn't load vehicles right now.</p>
+              <p className="text-sm">Please try again shortly, or contact us directly.</p>
+            </motion.div>
+          ) : filtered.length > 0 ? (
             <motion.div
               key={activeTab}
               initial={shouldReduce ? false : { opacity: 0 }}

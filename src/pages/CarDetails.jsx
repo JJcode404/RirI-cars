@@ -14,7 +14,8 @@ import {
   MdChecklist,
 } from 'react-icons/md'
 import { FaWhatsapp } from 'react-icons/fa'
-import { featuredCars } from '../data/cars'
+import useVehicle from '../hooks/useVehicle'
+import useVehicles from '../hooks/useVehicles'
 import { company } from '../data/company'
 import CarCard from '../components/FeaturedCars/CarCard'
 
@@ -28,7 +29,8 @@ const TABS = [
 
 export default function CarDetails() {
   const { id } = useParams()
-  const car = featuredCars.find((c) => String(c.id) === id)
+  const { vehicle: car, loading, error } = useVehicle(id)
+  const { vehicles } = useVehicles()
   const [activeTab, setActiveTab] = useState(TABS[0])
   const [activeImage, setActiveImage] = useState(0)
 
@@ -38,7 +40,15 @@ export default function CarDetails() {
     setActiveImage(0)
   }, [id])
 
-  if (!car) {
+  if (loading) {
+    return (
+      <main className="container-main pt-28 md:pt-32 pb-24 text-center min-h-[60vh]">
+        <p className="text-muted">Loading vehicle…</p>
+      </main>
+    )
+  }
+
+  if (!car || error) {
     return (
       <main className="container-main pt-28 md:pt-32 pb-24 text-center min-h-[60vh]">
         <h1 className="section-title mb-4">Vehicle Not Found</h1>
@@ -57,8 +67,8 @@ export default function CarDetails() {
   )
   const whatsappHref = `https://wa.me/${company.contact.whatsappBare.replace('+', '')}?text=${whatsappMessage}`
 
-  const related = featuredCars.filter((c) => c.id !== car.id && c.bodyType === car.bodyType)
-  const relatedFinal = (related.length > 0 ? related : featuredCars.filter((c) => c.id !== car.id)).slice(0, 4)
+  const related = vehicles.filter((c) => c.id !== car.id && c.bodyType === car.bodyType)
+  const relatedFinal = (related.length > 0 ? related : vehicles.filter((c) => c.id !== car.id)).slice(0, 4)
 
   const specs = [
     { label: 'Year', value: car.year },

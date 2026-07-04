@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import { MdArrowForward, MdSell } from 'react-icons/md'
-import { recentlySold } from '../../data/recentlySold'
+import useRecentlySold from '../../hooks/useRecentlySold'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -9,6 +9,9 @@ const formatPrice = (price) => `KSh ${price.toLocaleString('en-KE')}`
 
 export default function RecentlySold() {
   const shouldReduce = useReducedMotion()
+  const { items: recentlySold, loading, error } = useRecentlySold(10)
+
+  if (!loading && (error || recentlySold.length === 0)) return null
 
   return (
     <section id="recently-sold" className="section-gap bg-white">
@@ -41,6 +44,9 @@ export default function RecentlySold() {
         </motion.div>
 
         {/* Grid */}
+        {loading ? (
+          <div className="text-center py-12 text-muted">Loading…</div>
+        ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {recentlySold.map((car, i) => (
             <motion.article
@@ -80,6 +86,7 @@ export default function RecentlySold() {
             </motion.article>
           ))}
         </div>
+        )}
 
         <p className="text-muted-light text-xs text-center mt-6 italic">
           Representative of typical turnover — not tied to specific dated transactions.
