@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { MdArrowForward } from 'react-icons/md'
 import useVehicles from '../../hooks/useVehicles'
 import CarCard from './CarCard'
+import CarCardSkeleton from './CarCardSkeleton'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -95,8 +96,13 @@ export default function FeaturedCars() {
         {/* Cars Grid */}
         <AnimatePresence mode="wait">
           {loading ? (
-            <motion.div key="loading" className="text-center py-16 text-muted">
-              Loading vehicles…
+            <motion.div
+              key="loading"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            >
+              {Array.from({ length: 8 }).map((_, i) => (
+                <CarCardSkeleton key={i} />
+              ))}
             </motion.div>
           ) : error ? (
             <motion.div key="error" className="text-center py-16 text-muted">

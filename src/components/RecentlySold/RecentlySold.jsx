@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'motion/react'
 import { MdArrowForward, MdSell } from 'react-icons/md'
 import useRecentlySold from '../../hooks/useRecentlySold'
+import Skeleton from '../ui/Skeleton'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -45,7 +46,18 @@ export default function RecentlySold() {
 
         {/* Grid */}
         {loading ? (
-          <div className="text-center py-12 text-muted">Loading…</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="card-base rounded overflow-hidden flex flex-col">
+                <Skeleton className="aspect-[4/3] w-full rounded-none" />
+                <div className="p-4 flex flex-col flex-1 gap-3">
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-3 w-1/3" />
+                  <Skeleton className="h-5 w-1/2 mt-auto pt-3" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {recentlySold.map((car, i) => (

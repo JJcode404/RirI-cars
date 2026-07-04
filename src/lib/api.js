@@ -24,6 +24,7 @@ function mapVehicle(vehicle) {
 }
 
 async function request(path) {
+  await new Promise((r) => setTimeout(r, 2500))
   const res = await fetch(`${API_BASE_URL}${path}`)
   if (!res.ok) {
     throw new Error(`Request to ${path} failed with status ${res.status}`)

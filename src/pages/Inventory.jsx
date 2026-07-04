@@ -10,6 +10,7 @@ import {
 import useVehicles from '../hooks/useVehicles'
 import { company } from '../data/company'
 import VehicleCard from '../components/Inventory/VehicleCard'
+import VehicleCardSkeleton from '../components/Inventory/VehicleCardSkeleton'
 
 const formatPrice = (price) => `KSh ${price.toLocaleString('en-KE')}`
 
@@ -180,7 +181,13 @@ export default function Inventory() {
       </section>
 
       {loading ? (
-        <div className="container-main py-24 text-center text-muted">Loading vehicles…</div>
+        <div className="container-main py-10 md:py-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <VehicleCardSkeleton key={i} />
+            ))}
+          </div>
+        </div>
       ) : error ? (
         <div className="container-main py-24 text-center text-muted">
           <p className="text-lg font-semibold mb-2">Couldn't load vehicles right now.</p>

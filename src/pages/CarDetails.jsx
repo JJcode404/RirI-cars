@@ -18,6 +18,7 @@ import useVehicle from '../hooks/useVehicle'
 import useVehicles from '../hooks/useVehicles'
 import { company } from '../data/company'
 import CarCard from '../components/FeaturedCars/CarCard'
+import Skeleton from '../components/ui/Skeleton'
 
 const formatPrice = (price) => `KSh ${price.toLocaleString('en-KE')}`
 
@@ -42,8 +43,45 @@ export default function CarDetails() {
 
   if (loading) {
     return (
-      <main className="container-main pt-28 md:pt-32 pb-24 text-center min-h-[60vh]">
-        <p className="text-muted">Loading vehicle…</p>
+      <main className="pt-28 md:pt-32 pb-8 bg-brand-bg">
+        <div className="container-main">
+          <Skeleton className="h-4 w-64 my-5" />
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            <div className="w-full md:w-7/12 lg:w-8/12 space-y-8">
+              <div className="card-base rounded overflow-hidden">
+                <Skeleton className="aspect-[16/10] w-full rounded-none" />
+                <div className="grid grid-cols-5 gap-2 p-2 bg-brand-low">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton key={i} className="aspect-[4/3]" />
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 py-6 border-y border-brand-border">
+                <Skeleton className="h-11 w-32" />
+                <Skeleton className="h-11 w-40" />
+                <Skeleton className="h-11 w-36" />
+              </div>
+              <div className="space-y-3">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            </div>
+            <aside className="w-full md:w-5/12 lg:w-4/12 space-y-6">
+              <div className="hidden md:block space-y-3">
+                <Skeleton className="h-7 w-3/4" />
+                <Skeleton className="h-4 w-1/3" />
+                <Skeleton className="h-9 w-1/2" />
+              </div>
+              <Skeleton className="h-12 w-full" />
+              <div className="bg-white rounded p-6 border border-brand-border space-y-3">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <Skeleton key={i} className="h-4 w-full" />
+                ))}
+              </div>
+            </aside>
+          </div>
+        </div>
       </main>
     )
   }
