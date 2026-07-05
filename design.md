@@ -152,8 +152,7 @@ star-empty       → text-brand-border
 
 ```
 Name:        Riri Cars Ltd.
-Phone 1:     +254 722 510 575
-Phone 2:     +254 711 577 251
+Phone:       +254 729 003 333
 WhatsApp:    +254 729 003 333
 Email:       info@riricars.co.ke
 Website:     https://riricars.co.ke

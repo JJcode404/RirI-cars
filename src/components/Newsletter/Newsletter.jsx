@@ -133,16 +133,6 @@ export default function Newsletter() {
                 </div>
               </a>
 
-              <a href={`tel:${company.contact.phone2Bare}`} className="flex items-center gap-4 group">
-                <div className="w-10 h-10 bg-primary/20 border border-primary/30 rounded flex items-center justify-center group-hover:bg-primary transition-all">
-                  <MdPhone className="text-primary group-hover:text-white" />
-                </div>
-                <div>
-                  <p className="text-white/50 text-xs">Call us</p>
-                  <p className="text-white font-semibold text-sm">{company.contact.phone2}</p>
-                </div>
-              </a>
-
               <a
                 href={company.social.whatsapp}
                 target="_blank"

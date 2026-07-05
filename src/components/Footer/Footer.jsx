@@ -160,7 +160,7 @@ export default function Footer() {
                 </div>
               </li>
 
-              {/* Phone 1 — verified */}
+              {/* Phone — official number */}
               <li>
                 <a
                   href={`tel:${company.contact.phone1Bare}`}
@@ -168,17 +168,6 @@ export default function Footer() {
                 >
                   <MdPhone className="text-primary text-lg flex-shrink-0" />
                   {company.contact.phone1}
-                </a>
-              </li>
-
-              {/* Phone 2 — verified */}
-              <li>
-                <a
-                  href={`tel:${company.contact.phone2Bare}`}
-                  className="flex items-center gap-3 text-white/50 hover:text-white text-sm transition-colors"
-                >
-                  <MdPhone className="text-primary text-lg flex-shrink-0" />
-                  {company.contact.phone2}
                 </a>
               </li>
 

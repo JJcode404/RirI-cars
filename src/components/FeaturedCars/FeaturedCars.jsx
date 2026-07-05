@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { MdArrowForward } from 'react-icons/md'
 import useVehicles from '../../hooks/useVehicles'
+import SearchBar from '../SearchBar/SearchBar'
 import CarCard from './CarCard'
 import CarCardSkeleton from './CarCardSkeleton'
 
@@ -31,8 +32,18 @@ export default function FeaturedCars() {
   })
 
   return (
-    <section id="featured" className="section-gap bg-brand-bg">
+    <section id="featured" className="section-gap pt-28 md:pt-36 bg-brand-bg">
       <div className="container-main">
+        {/* Search bar */}
+        <motion.div
+          initial={shouldReduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, ease }}
+          className="mb-10"
+        >
+          <SearchBar />
+        </motion.div>
+
         {/* Section header */}
         <motion.div
           initial={shouldReduce ? false : { opacity: 0, y: 20 }}
